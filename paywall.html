@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fieldiq AI | Choose Your Plan</title>
+  <meta
+    name="description"
+    content="Choose the Fieldiq AI plan that fits your business. Start with Starter or unlock AI Pro."
+  />
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
+  <link rel="stylesheet" href="paywall.css" />
+</head>
+<body>
+  <main class="paywall-page">
+    <section class="paywall-shell">
+      <div class="paywall-top">
+        <div class="paywall-badge">Choose your plan</div>
+        <h1>Pick the plan that fits your business</h1>
+        <p class="paywall-subtext">
+          Start with the essentials or unlock AI-powered business insight with AI Pro.
+        </p>
+      </div>
+
+      <div id="paywall-message" class="paywall-message" aria-live="polite"></div>
+
+      <div class="plans-grid">
+        <article class="plan-card">
+          <div class="plan-label">Starter</div>
+          <h2>$49<span>/month</span></h2>
+          <p class="plan-copy">
+            Built for owners who want clear numbers, simple tracking, and control.
+          </p>
+
+          <ul class="plan-features">
+            <li>Dashboard overview</li>
+            <li>Job profit tracking</li>
+            <li>Expense tracking</li>
+            <li>Calendar</li>
+            <li>Reports</li>
+          </ul>
+
+          <button class="plan-btn plan-btn-secondary" data-plan="starter">
+            Start Starter
+          </button>
+        </article>
+
+        <article class="plan-card featured-plan">
+          <div class="plan-label plan-label-green">AI Pro</div>
+          <div class="top-value-tag">Most Valuable</div>
+          <h2>$99<span>/month</span></h2>
+          <p class="plan-copy">
+            Unlock your smartest workflow with AI insight built for service business owners.
+          </p>
+
+          <ul class="plan-features">
+            <li>Everything in Starter</li>
+            <li>AI financial insights</li>
+            <li>Smarter business analysis</li>
+            <li>Faster decision support</li>
+            <li>Premium AI experience</li>
+          </ul>
+
+          <button class="plan-btn plan-btn-primary" data-plan="pro">
+            Unlock AI Pro
+          </button>
+        </article>
+      </div>
+
+      <div class="paywall-note">
+        Test mode is fine for now. Your UI stays fully custom, and Stripe handles the secure checkout flow behind it. :contentReference[oaicite:1]{index=1}
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="paywall.js"></script>
+</body>
+</html>

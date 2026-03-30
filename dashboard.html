@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body class="dashboard-body">
+  <div class="dashboard-shell">
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-mark">FI</div>
+          <div>
+            <h2>Fieldiq AI</h2>
+            <p>Business Finance OS</p>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link active">Dashboard</a>
+          <a href="add-job.html" class="nav-link">Add Job</a>
+          <a href="jobs.html" class="nav-link">Job History</a>
+          <a href="expenses.html" class="nav-link">Expenses</a>
+          <a href="ai.html" class="nav-link ai-link">AI Advisor</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+
+      <!-- ─── Header ─────────────────────────────────────────────────────── -->
+      <header class="dashboard-topbar">
+        <div>
+          <p class="eyebrow">Recent profit reports for</p>
+          <h1 class="dashboard-business-name" id="business-name">Your Business</h1>
+        </div>
+
+        <div class="topbar-user-card">
+          <span class="user-label">Account</span>
+          <p id="user-email">Loading...</p>
+        </div>
+      </header>
+
+      <!-- ─── Live overview banner ───────────────────────────────────────── -->
+      <section class="hero-banner">
+        <div class="hero-copy">
+          <p class="hero-kicker">Live overview</p>
+          <h2>Track profit, see upcoming bills, and stay ahead of your numbers.</h2>
+          <p>
+            Your dashboard pulls from completed jobs and recurring expenses so you can move faster and make better business decisions.
+          </p>
+          <div class="hero-ai-nudge">
+            <span>Have a question? Don't understand your numbers?</span>
+            <a href="ai.html" class="hero-ai-nudge-btn">Ask Fieldiq AI →</a>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="ai.html" class="hero-primary-btn">⭐ Open AI Advisor</a>
+          <a href="add-job.html" class="hero-secondary-btn">+ Add Job</a>
+        </div>
+      </section>
+
+      <!-- ─── Stat cards ─────────────────────────────────────────────────── -->
+      <section class="stats-grid">
+        <div class="card stat-card featured-card">
+          <div class="card-head">
+            <div>
+              <p class="card-label">All-Time Profit</p>
+              <h3 id="all-time-profit">$0.00</h3>
+            </div>
+          </div>
+          <div id="allTimeChart" class="mini-chart large-chart"></div>
+        </div>
+
+        <div class="card stat-card">
+          <p class="card-label">Daily Profit</p>
+          <h3 id="daily-profit">$0.00</h3>
+          <div id="dailyChart" class="mini-chart"></div>
+        </div>
+
+        <div class="card stat-card">
+          <p class="card-label">Weekly Profit</p>
+          <h3 id="weekly-profit">$0.00</h3>
+          <div id="weeklyChart" class="mini-chart"></div>
+        </div>
+
+        <div class="card stat-card">
+          <p class="card-label">Monthly Profit</p>
+          <h3 id="monthly-profit">$0.00</h3>
+          <div id="monthlyChart" class="mini-chart"></div>
+        </div>
+
+        <div class="card stat-card">
+          <p class="card-label">Yearly Profit</p>
+          <h3 id="yearly-profit">$0.00</h3>
+          <div id="yearlyChart" class="mini-chart"></div>
+        </div>
+      </section>
+
+      <!-- ─── Lower grid ─────────────────────────────────────────────────── -->
+      <section class="dashboard-lower-grid">
+
+        <!-- Upcoming expenses table -->
+        <div class="card table-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Upcoming bills</p>
+              <h2>Upcoming Expenses</h2>
+            </div>
+          </div>
+
+          <p class="dashboard-note">
+            Metrics are calculated from your completed jobs. Daily and weekly values are estimated from recent performance.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Frequency</th>
+                </tr>
+              </thead>
+              <tbody id="upcoming-expenses-body"></tbody>
+            </table>
+          </div>
+
+          <p id="no-upcoming-expenses" class="empty-message" style="display: none;">
+            No upcoming expenses in the next 30 days.
+          </p>
+        </div>
+
+        <!-- Smart stats summary -->
+        <div class="card summary-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Business snapshot</p>
+              <h2>This Month</h2>
+            </div>
+          </div>
+
+          <div class="summary-stats">
+            <div class="summary-row">
+              <span class="summary-label">Jobs completed</span>
+              <span class="summary-value" id="jobs-this-month">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Avg profit / job</span>
+              <span class="summary-value" id="avg-profit-per-job">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Total revenue</span>
+              <span class="summary-value" id="total-revenue-month">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Total expenses</span>
+              <span class="summary-value" id="total-expenses-month">—</span>
+            </div>
+            <div class="summary-row summary-row-highlight">
+              <span class="summary-label">Net profit</span>
+              <span class="summary-value" id="net-profit-month">—</span>
+            </div>
+          </div>
+
+          <div class="summary-actions">
+            <a href="ai.html" class="action-btn action-btn-primary">⭐ AI Advisor</a>
+            <a href="add-job.html" class="action-btn">+ Add Job</a>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

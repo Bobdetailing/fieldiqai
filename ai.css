@@ -1,0 +1,436 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body.ai-body {
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: #09080a;
+  color: #f0ece8;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+
+/* ─── Atmospheric background ─────────────────────────────────────────────── */
+
+body.ai-body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 65% 0%, rgba(212, 163, 68, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 5% 90%, rgba(212, 163, 68, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(15, 10, 5, 0.6) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Shell ──────────────────────────────────────────────────────────────── */
+
+.dashboard-shell {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────── */
+
+.sidebar {
+  width: 250px;
+  background: rgba(6, 5, 7, 0.98);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 22px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding: 6px 6px 10px; }
+
+.brand-mark {
+  width: 42px; height: 42px; border-radius: 13px;
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 13px; color: #fff; letter-spacing: -0.03em;
+  box-shadow: 0 10px 26px rgba(34, 197, 94, 0.23); flex-shrink: 0;
+}
+
+.sidebar-brand h2 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.sidebar-brand p { margin: 5px 0 0; font-size: 11px; color: #8ea195; font-weight: 500; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 8px; }
+
+.nav-link {
+  text-decoration: none; color: #c8c0b8; background: transparent;
+  border: 1px solid transparent; padding: 11px 13px; border-radius: 13px;
+  font-weight: 600; font-size: 14px; letter-spacing: -0.01em;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.04); transform: translateY(-1px); }
+.nav-link.active { background: rgba(212,163,68,0.1); border-color: rgba(212,163,68,0.2); color: #f0d080; }
+.ai-link { color: #f0d080; }
+.sidebar-bottom { margin-top: 28px; padding: 4px; }
+
+.logout-btn {
+  width: 100%; background: rgba(255,255,255,0.04); color: #f0ece8;
+  border: 1px solid rgba(255,255,255,0.06); padding: 11px 14px;
+  border-radius: 13px; font-weight: 600; font-size: 14px; cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.logout-btn:hover { background: rgba(255,255,255,0.07); transform: translateY(-1px); }
+
+/* ─── Main ───────────────────────────────────────────────────────────────── */
+
+.ai-main {
+  flex: 1;
+  padding: 40px 48px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ─── Upgrade gate ───────────────────────────────────────────────────────── */
+
+.upgrade-gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  position: relative;
+}
+
+.upgrade-orb {
+  position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,163,68,0.07) 0%, transparent 70%);
+  pointer-events: none; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.upgrade-content {
+  max-width: 520px; text-align: center; position: relative; z-index: 1;
+}
+
+.upgrade-eyebrow {
+  margin: 0 0 16px; font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #d4a344; font-weight: 800;
+}
+
+.upgrade-title {
+  margin: 0 0 20px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 56px; line-height: 1.05; color: #f0ece8; font-weight: 400;
+}
+
+.upgrade-title em { font-style: italic; color: #d4a344; }
+
+.upgrade-body {
+  margin: 0 0 32px; font-size: 16px; color: #8a7e74; line-height: 1.65; font-weight: 500;
+}
+
+.upgrade-plans { display: flex; gap: 14px; justify-content: center; margin-bottom: 28px; }
+
+.upgrade-plan {
+  flex: 1; max-width: 180px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px; padding: 20px 16px;
+  display: flex; flex-direction: column; gap: 6px; text-align: left;
+}
+
+.upgrade-plan-featured {
+  background: rgba(212,163,68,0.07); border-color: rgba(212,163,68,0.25); position: relative;
+}
+
+.plan-badge {
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, #d4a344, #b8852a);
+  color: #0a0808; font-size: 10px; font-weight: 900; letter-spacing: 0.06em;
+  padding: 3px 10px; border-radius: 20px; white-space: nowrap; text-transform: uppercase;
+}
+
+.plan-name { font-size: 13px; font-weight: 700; color: #c8bfb5; }
+.plan-price { font-size: 28px; font-weight: 900; letter-spacing: -0.04em; color: #f0ece8; }
+.plan-price span { font-size: 14px; font-weight: 600; color: #6a5e54; }
+.plan-desc { font-size: 12px; color: #6a5e54; font-weight: 500; }
+
+.upgrade-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 15px 32px; border-radius: 16px;
+  background: linear-gradient(135deg, #d4a344, #b8852a);
+  color: #0a0808; font-size: 16px; font-weight: 800; letter-spacing: -0.01em;
+  border: none; cursor: pointer;
+  box-shadow: 0 16px 40px rgba(212,163,68,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upgrade-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 48px rgba(212,163,68,0.35); }
+
+/* ─── AI App header ──────────────────────────────────────────────────────── */
+
+.ai-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 44px; gap: 24px;
+}
+
+.ai-header-left { display: flex; align-items: flex-start; gap: 16px; }
+
+.ai-status-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #d4a344; margin-top: 14px; flex-shrink: 0;
+  box-shadow: 0 0 0 4px rgba(212,163,68,0.15);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(212,163,68,0.15); }
+  50%       { box-shadow: 0 0 0 8px rgba(212,163,68,0.07); }
+}
+
+.ai-eyebrow {
+  margin: 0 0 10px; font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #d4a344; font-weight: 800;
+}
+
+.ai-title {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  font-size: 52px; line-height: 1.02; font-weight: 400; color: #f0ece8;
+}
+
+.ai-title em { font-style: italic; color: #d4a344; }
+
+.ai-subtitle {
+  margin: 0; max-width: 300px;
+  font-size: 14px; color: #6a5e54; line-height: 1.65; font-weight: 500;
+  text-align: right;
+}
+
+/* ─── Section labels ─────────────────────────────────────────────────────── */
+
+.ai-section-label {
+  margin: 0 0 14px; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #5a4e44; font-weight: 800;
+}
+
+/* ─── Prompt buttons ─────────────────────────────────────────────────────── */
+
+.ai-prompts-section { margin-bottom: 32px; }
+
+.ai-prompts-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+
+.ai-prompt-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  padding: 18px 16px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px; cursor: pointer; text-align: left;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative; overflow: hidden;
+  /* bottom highlight makes it look pressable */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.ai-prompt-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(212,163,68,0.08), transparent);
+  opacity: 0; transition: opacity 0.2s ease;
+}
+
+/* tap indicator — small gold bar at top */
+.ai-prompt-btn::after {
+  content: '';
+  position: absolute; top: 0; left: 16px; right: 16px; height: 2px;
+  background: linear-gradient(90deg, rgba(212,163,68,0.5), transparent);
+  border-radius: 0 0 4px 4px;
+  opacity: 0; transition: opacity 0.2s ease;
+}
+
+.ai-prompt-btn:hover {
+  background: rgba(212,163,68,0.08);
+  border-color: rgba(212,163,68,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.ai-prompt-btn:hover::before { opacity: 1; }
+.ai-prompt-btn:hover::after  { opacity: 1; }
+
+.ai-prompt-btn:active { transform: translateY(0px); }
+
+.ai-prompt-btn.active {
+  background: rgba(212,163,68,0.1);
+  border-color: rgba(212,163,68,0.35);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 0 0 1px rgba(212,163,68,0.15), 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.ai-prompt-btn.active::after { opacity: 1; }
+
+.prompt-icon { font-size: 22px; line-height: 1; }
+.prompt-label { font-size: 14px; font-weight: 800; color: #f0ece8; letter-spacing: -0.02em; position: relative; }
+.prompt-sub { font-size: 12px; color: #5a4e44; font-weight: 500; line-height: 1.4; position: relative; }
+
+/* ─── Custom question ────────────────────────────────────────────────────── */
+
+.ai-custom-section { margin-bottom: 28px; }
+
+.ai-custom-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px; padding: 20px 22px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ai-custom-card:focus-within {
+  border-color: rgba(212,163,68,0.25);
+  background: rgba(212,163,68,0.03);
+}
+
+.ai-input-row { display: flex; gap: 12px; align-items: center; }
+
+.ai-custom-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: #f0ece8; font-size: 15px; font-weight: 500;
+}
+
+.ai-custom-input::placeholder { color: #3a3028; }
+
+.ai-ask-btn {
+  padding: 10px 22px; border-radius: 12px;
+  background: linear-gradient(135deg, #d4a344, #b8852a);
+  color: #0a0808; font-size: 14px; font-weight: 800; letter-spacing: -0.01em;
+  border: none; cursor: pointer; white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(212,163,68,0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ai-ask-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(212,163,68,0.3); }
+
+.ai-char-count { margin: 10px 0 0; font-size: 12px; color: #3a3028; font-weight: 600; }
+
+/* ─── Brand pride line ───────────────────────────────────────────────────── */
+
+.ai-pride-line {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ai-pride-text {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #4a3e34; font-weight: 700;
+}
+
+.ai-pride-divider {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(212,163,68,0.15), transparent);
+}
+
+/* ─── Response card ──────────────────────────────────────────────────────── */
+
+.ai-response-section { margin-bottom: 40px; }
+
+.ai-response-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 22px; overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.ai-response-card.has-response { border-color: rgba(212,163,68,0.18); }
+
+.ai-response-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.015);
+}
+
+.ai-response-indicator {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #4a3e34;
+}
+
+.ai-response-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #d4a344;
+  box-shadow: 0 0 0 3px rgba(212,163,68,0.15);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.ai-response-card.has-response .ai-response-dot {
+  background: #d4a344;
+  box-shadow: 0 0 0 3px rgba(212,163,68,0.15);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.ai-response-card.thinking .ai-response-dot {
+  background: #d4a344;
+  box-shadow: 0 0 0 3px rgba(212,163,68,0.15);
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+.ai-response-body { padding: 28px 28px 32px; min-height: 160px; }
+
+.ai-response-text {
+  margin: 0; font-size: 16px; line-height: 1.8;
+  color: #5a4e44; font-weight: 400; white-space: pre-wrap;
+  transition: color 0.3s ease;
+}
+
+.ai-response-text.thinking-state {
+  color: #4a3e34; font-style: italic;
+  animation: thinking-fade 1.4s ease-in-out infinite;
+}
+
+.ai-response-text.has-content { color: #e8e0d8; }
+
+@keyframes thinking-fade {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* ─── Utility ────────────────────────────────────────────────────────────── */
+
+.hidden { display: none !important; }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .ai-prompts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .dashboard-shell { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 14px 14px 12px; }
+  .sidebar-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .nav-link { padding: 10px 12px; font-size: 13px; text-align: center; }
+  .sidebar-bottom { margin-top: 8px; padding: 0; }
+  .ai-main { padding: 24px 20px; }
+  .ai-header { flex-direction: column; gap: 12px; }
+  .ai-subtitle { text-align: left; max-width: 100%; }
+  .ai-title { font-size: 38px; }
+  .upgrade-title { font-size: 40px; }
+  .upgrade-plans { flex-direction: column; align-items: center; }
+  .upgrade-plan { max-width: 100%; width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .ai-main { padding: 16px 14px; }
+  .ai-title { font-size: 30px; }
+  .ai-prompts-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ai-prompt-btn { padding: 14px 12px; }
+  .prompt-icon { font-size: 18px; }
+  .prompt-label { font-size: 13px; }
+  .prompt-sub { font-size: 11px; }
+  .ai-input-row { flex-direction: column; align-items: stretch; }
+  .ai-ask-btn { width: 100%; justify-content: center; text-align: center; }
+  .sidebar-nav { grid-template-columns: 1fr; }
+  .upgrade-title { font-size: 32px; }
+}

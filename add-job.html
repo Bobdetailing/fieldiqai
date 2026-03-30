@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Job — Fieldiq AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link rel="stylesheet" href="add-job.css" />
+</head>
+
+<body class="addjob-body">
+  <div class="dashboard-shell">
+
+    <!-- ─── Sidebar ─────────────────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-mark">FI</div>
+          <div>
+            <h2>Fieldiq AI</h2>
+            <p>Business Finance OS</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="add-job.html" class="nav-link active">Add Job</a>
+          <a href="jobs.html" class="nav-link">Job History</a>
+          <a href="expenses.html" class="nav-link">Expenses</a>
+          <a href="ai.html" class="nav-link ai-link">AI Advisor</a>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <!-- ─── Main ──────────────────────────────────────────────────────────── -->
+    <main class="addjob-main">
+
+      <header class="addjob-header">
+        <div>
+          <p class="eyebrow">Log your work</p>
+          <h1 class="addjob-title">Add Job</h1>
+        </div>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+      </header>
+
+      <div class="addjob-grid">
+
+        <!-- ── Left column ──────────────────────────────────────────────── -->
+        <div class="addjob-col">
+
+          <!-- Job Info -->
+          <div class="card form-card">
+            <div class="card-section-label">Job Info</div>
+
+            <div class="field">
+              <label for="jobTitle">Job Title</label>
+              <input id="jobTitle" type="text" placeholder="e.g. Oak Tree Removal" />
+            </div>
+
+            <div class="field">
+              <label for="jobDate">Job Date</label>
+              <input id="jobDate" type="date" />
+            </div>
+          </div>
+
+          <!-- Revenue & Cost -->
+          <div class="card form-card">
+            <div class="card-section-label">Revenue & Cost</div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="revenue">Revenue</label>
+                <div class="input-prefix-wrap">
+                  <span class="input-prefix">$</span>
+                  <input id="revenue" type="number" step="0.01" placeholder="0.00" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="cost">Base Cost</label>
+                <div class="input-prefix-wrap">
+                  <span class="input-prefix">$</span>
+                  <input id="cost" type="number" step="0.01" placeholder="0.00" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra Expenses -->
+          <div class="card form-card">
+            <div class="card-section-label">Extra Expenses</div>
+            <p class="card-helper">Add any job-specific costs like fuel, supplies, or equipment rental.</p>
+
+            <div id="expensesContainer"></div>
+
+            <button type="button" id="addExpense" class="subtle-btn">+ Add Expense</button>
+          </div>
+
+        </div>
+
+        <!-- ── Right column ─────────────────────────────────────────────── -->
+        <div class="addjob-col">
+
+          <!-- Employees -->
+          <div class="card form-card">
+            <div class="card-section-label">Employees</div>
+
+            <div class="field">
+              <label for="payMode">Pay Setup</label>
+              <select id="payMode">
+                <option value="same">Same pay for all employees</option>
+                <option value="custom">Different pay per employee</option>
+              </select>
+            </div>
+
+            <!-- Same pay -->
+            <div id="samePaySection">
+              <div class="field-row">
+                <div class="field">
+                  <label for="employeeCount">Employees Working</label>
+                  <input id="employeeCount" type="number" min="1" placeholder="1" />
+                </div>
+                <div class="field">
+                  <label for="payType">Pay Type</label>
+                  <select id="payType">
+                    <option value="hourly">Hourly</option>
+                    <option value="daily">Daily</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="hourlyFields">
+                <div class="field-row">
+                  <div class="field">
+                    <label for="employeeHours">Hours Worked</label>
+                    <input id="employeeHours" type="number" step="0.01" placeholder="0" />
+                  </div>
+                  <div class="field">
+                    <label for="employeePay">Hourly Rate</label>
+                    <div class="input-prefix-wrap">
+                      <span class="input-prefix">$</span>
+                      <input id="employeePay" type="number" step="0.01" placeholder="0.00" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="dailyFields" class="hidden">
+                <div class="field">
+                  <label for="employeeDaily">Daily Pay Per Employee</label>
+                  <div class="input-prefix-wrap">
+                    <span class="input-prefix">$</span>
+                    <input id="employeeDaily" type="number" step="0.01" placeholder="0.00" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom pay -->
+            <div id="customPaySection" class="hidden">
+              <p class="card-helper">Each employee can have different hourly or daily pay.</p>
+              <div id="employeeRowsContainer"></div>
+              <button type="button" id="addEmployeeRow" class="subtle-btn">+ Add Employee</button>
+            </div>
+          </div>
+
+          <!-- Save -->
+          <div class="card save-card">
+            <div class="save-summary">
+              <p class="save-label">Ready to log this job?</p>
+              <p class="save-sub">All costs including employee pay and expenses will be calculated automatically.</p>
+            </div>
+            <button type="button" id="saveJob" class="save-btn">Save Job →</button>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="add-job.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dateInput = document.getElementById("jobDate")
+      const today = new Date().toISOString().split("T")[0]
+      dateInput.value = today
+    })
+
+    async function logout() {
+      const { createClient } = supabase
+      const client = createClient(
+        "https://szyakeozorhmardkdfav.supabase.co",
+        "sb_publishable_WqRLpDuFC8YBkdtOuzGtSg_16n08qa-"
+      )
+      await client.auth.signOut()
+      window.location.href = "auth.html"
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fieldiq AI | Log In</title>
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="login-simple-page" data-auth-mode="login">
+  <main class="login-simple-wrap">
+    <section class="login-simple-card">
+      <a href="home.html" class="auth-logo-link" aria-label="Fieldiq AI Home">
+        <img src="fieldiq-sun.png" alt="Fieldiq AI logo" class="auth-logo small-auth-logo" />
+      </a>
+
+      <div class="auth-form-topline">Log In</div>
+      <h1 class="login-title">Welcome back</h1>
+      <p class="login-subtext">
+        Log in to get back to your dashboard, your numbers, and your business insights.
+      </p>
+
+      <div id="auth-message" class="auth-message" aria-live="polite"></div>
+
+      <form id="login-form" class="auth-form">
+        <label for="login-email">Email</label>
+        <input
+          type="email"
+          id="login-email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+
+        <label for="login-password">Password</label>
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        />
+
+        <button type="submit" id="login-btn" class="auth-submit-btn">
+          Log In
+        </button>
+      </form>
+
+      <p class="auth-switch-text">
+        Don’t have an account?
+        <a href="signup.html">Sign up</a>
+      </p>
+
+      <p class="auth-back-link">
+        <a href="auth.html">← Back</a>
+      </p>
+    </section>
+  </main>
+
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

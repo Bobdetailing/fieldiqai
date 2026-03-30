@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fieldiq AI | Sign Up</title>
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="auth-page" data-auth-mode="signup">
+  <main class="auth-layout signup-layout">
+    <section class="signup-info-panel">
+      <div class="signup-info-inner">
+        <div class="auth-brand-badge">Built for owners, not accountants</div>
+
+        <h1>Start with clarity — then let AI learn your business</h1>
+        <p class="signup-info-subtext">
+          Create your account and go through a short onboarding so Fieldiq AI can better understand your business, expenses, and margins.
+        </p>
+
+        <div class="signup-highlight-box">
+          <div class="signup-highlight-label">Why onboarding matters</div>
+          <h3>Your AI gets smarter with business context</h3>
+          <p>
+            We’ll ask a few quick setup questions so Fieldiq AI can analyze your business more accurately from day one.
+          </p>
+        </div>
+
+        <div class="signup-mini-grid">
+          <div class="signup-mini-card">
+            <div class="signup-mini-emoji">🤖</div>
+            <h4>AI insight</h4>
+            <p>Get sharper answers based on your actual business.</p>
+          </div>
+
+          <div class="signup-mini-card">
+            <div class="signup-mini-emoji">📊</div>
+            <h4>Real clarity</h4>
+            <p>See profit, expenses, and patterns more clearly.</p>
+          </div>
+
+          <div class="signup-mini-card">
+            <div class="signup-mini-emoji">⚡</div>
+            <h4>Short setup</h4>
+            <p>The onboarding is quick and built to help, not waste time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="auth-form-panel">
+      <div class="auth-form-card">
+        <a href="home.html" class="auth-logo-link mobile-auth-logo-link" aria-label="Fieldiq AI Home">
+          <img src="fieldiq-sun.png" alt="Fieldiq AI logo" class="auth-logo small-auth-logo" />
+        </a>
+
+        <div class="auth-form-topline">Sign Up</div>
+        <h2>Create your account</h2>
+        <p class="auth-form-subtext">
+          Get started with Fieldiq AI in just a minute.
+        </p>
+
+        <div id="auth-message" class="auth-message" aria-live="polite"></div>
+
+        <form id="signup-form" class="auth-form">
+          <label for="signup-email">Email</label>
+          <input
+            type="email"
+            id="signup-email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+
+          <label for="signup-password">Password</label>
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+            required
+          />
+
+          <button type="submit" id="signup-btn" class="auth-submit-btn">
+            Create Account
+          </button>
+        </form>
+
+        <p class="auth-switch-text">
+          Already have an account?
+          <a href="login.html">Log in</a>
+        </p>
+
+        <p class="auth-back-link">
+          <a href="auth.html">← Back</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

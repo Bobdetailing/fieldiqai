@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fieldiq AI | Business Setup</title>
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
+  <link rel="stylesheet" href="onboarding.css" />
+</head>
+<body>
+  <main class="onboarding-page">
+    <section class="onboarding-shell">
+      <div class="onboarding-left">
+        <div class="onboarding-badge">Short setup. Smarter AI.</div>
+
+        <h1>Set up your business so Fieldiq can think more clearly</h1>
+        <p class="onboarding-intro">
+          This quick setup gives Fieldiq AI the business context it needs to make your dashboard,
+          expenses, and insights more useful from day one.
+        </p>
+
+        <div class="onboarding-highlight">
+          <div class="onboarding-highlight-label">Important</div>
+          <h3>The numbers don’t have to be perfect</h3>
+          <p>
+            Start with your best estimates. Fieldiq AI learns over time as you add real jobs,
+            expenses, and business activity.
+          </p>
+        </div>
+
+        <div class="ai-preview-card">
+          <div class="ai-preview-top">
+            <div class="ai-preview-dot"></div>
+            <div class="ai-preview-dot"></div>
+            <div class="ai-preview-dot"></div>
+          </div>
+
+          <div class="ai-preview-chat">
+            <div class="ai-msg user-msg">
+              My profit feels lower than I expected.
+            </div>
+
+            <div class="ai-msg ai-msg-bubble">
+              Based on your recurring expenses and fuel costs, your margins may be tighter than your revenue suggests.
+            </div>
+
+            <div class="ai-msg user-msg">
+              So the setup helps with that?
+            </div>
+
+            <div class="ai-msg ai-msg-bubble">
+              Yes — the more business context Fieldiq has, the better it can explain what’s happening and what to improve.
+            </div>
+          </div>
+        </div>
+
+        <div class="onboarding-mini-grid">
+          <div class="onboarding-mini-card">
+            <div class="mini-emoji">🤖</div>
+            <h4>Better AI insight</h4>
+            <p>More context means smarter answers and stronger analysis.</p>
+          </div>
+
+          <div class="onboarding-mini-card">
+            <div class="mini-emoji">📊</div>
+            <h4>Cleaner dashboard</h4>
+            <p>Your business starts with a stronger financial baseline.</p>
+          </div>
+
+          <div class="onboarding-mini-card">
+            <div class="mini-emoji">⚡</div>
+            <h4>Quick setup</h4>
+            <p>This only takes a minute and makes everything work better.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-right">
+        <div class="onboarding-card">
+          <div class="progress-wrap">
+            <div class="progress-label-row">
+              <span class="progress-label">Business setup</span>
+              <span class="progress-step">Step 1 of 1</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+
+          <h2>Tell us about your business</h2>
+          <p class="onboarding-subtext">
+            Enter your business name and your 4 baseline expenses so Fieldiq can start with useful numbers.
+          </p>
+
+          <div id="onboarding-message" class="onboarding-message" aria-live="polite"></div>
+
+          <div class="form-section">
+            <label for="company-name">Business Name</label>
+            <input id="company-name" type="text" placeholder="Business Name" />
+          </div>
+
+          <div class="form-section">
+            <div class="section-title">Required 4 Basic Expenses</div>
+            <p class="section-subtext">
+              These help us understand your recurring operating costs from day one.
+            </p>
+
+            <div class="estimate-note">
+              The numbers don’t have to be perfect — our AI learns over time.
+            </div>
+
+            <div class="new-business-option">
+              <label class="checkbox-wrap">
+                <input type="checkbox" id="new-business-mode" />
+                <span>New business — no recurring expenses yet</span>
+              </label>
+            </div>
+
+            <div class="input-grid" id="expense-grid">
+              <div class="input-card">
+                <label for="weekly-gas">Weekly Gas Cost</label>
+                <input id="weekly-gas" type="number" step="0.01" placeholder="0.00" />
+              </div>
+
+              <div class="input-card">
+                <label for="monthly-vehicle-insurance">Monthly Vehicle Insurance</label>
+                <input id="monthly-vehicle-insurance" type="number" step="0.01" placeholder="0.00" />
+              </div>
+
+              <div class="input-card">
+                <label for="monthly-equipment-upkeep">Monthly Equipment Upkeep</label>
+                <input id="monthly-equipment-upkeep" type="number" step="0.01" placeholder="0.00" />
+              </div>
+
+              <div class="input-card">
+                <label for="monthly-liability-insurance">Monthly Liability Insurance</label>
+                <input id="monthly-liability-insurance" type="number" step="0.01" placeholder="0.00" />
+              </div>
+            </div>
+          </div>
+
+          <div class="page-actions">
+            <button id="save-company" class="finish-btn">Continue to Plans</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="onboarding.js"></script>
+</body>
+</html>

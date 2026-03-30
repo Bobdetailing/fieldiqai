@@ -1,0 +1,305 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  padding: 40px 20px;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+#user-email {
+  text-align: center;
+  color: #cbd5e1;
+  margin-bottom: 24px;
+}
+
+h2 {
+  max-width: 1100px;
+  margin: 0 auto 8px auto;
+}
+
+.dashboard-note {
+  max-width: 1100px;
+  margin: 0 auto 24px auto;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.stats {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  padding: 22px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.all-time-card {
+  width: 100%;
+  min-height: 220px;
+}
+
+.all-time-card p {
+  font-size: 42px;
+}
+
+.small-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.small-cards .card {
+  min-height: 220px;
+  margin-bottom: 0;
+}
+
+.yearly-card {
+  width: 100%;
+  min-height: 220px;
+}
+
+.mini-chart {
+  width: 100%;
+  height: 80px;
+  display: block;
+  margin-top: 8px;
+}
+
+.dashboard-actions {
+  max-width: 1100px;
+  margin: 8px auto 0 auto;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  background: #22c55e;
+  color: white;
+}
+
+.dashboard-actions button:last-child {
+  background: #334155;
+}
+
+/* Job History table styling */
+.table-wrap {
+  max-width: 1100px;
+  margin: 0 auto 24px auto;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #0b1220;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #1f2937;
+}
+
+th {
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+td {
+  color: white;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.empty-message {
+  max-width: 1100px;
+  margin: 0 auto 24px auto;
+  color: #94a3b8;
+}
+
+.page-actions {
+  max-width: 1100px;
+  margin: 8px auto 0 auto;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.page-actions button:last-child {
+  background: #334155;
+}
+
+@media (max-width: 900px) {
+  .small-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-actions,
+  .page-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.jobs-groups {
+  max-width: 1100px;
+  margin: 0 auto 24px auto;
+}
+
+.month-group {
+  margin-bottom: 18px;
+}
+
+.month-details {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.month-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+}
+
+.month-summary::-webkit-details-marker {
+  display: none;
+}
+
+.month-title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.month-subtitle {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.month-profit {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.month-jobs {
+  padding: 0 20px 20px 20px;
+}
+
+.job-card {
+  background: #0b1220;
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.job-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job-summary::-webkit-details-marker {
+  display: none;
+}
+
+.job-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.job-date {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.job-profit {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.job-details {
+  padding: 0 18px 18px 18px;
+}
+
+.job-details p {
+  margin-bottom: 10px;
+}
+
+.delete-job-btn {
+  margin-top: 8px;
+  background: #ef4444;
+}
+
+.expense-form-wrap {
+  padding: 22px 22px 0 22px;
+}
+
+.expense-actions {
+  margin: 12px 0 20px 0;
+}
+
+.expense-form-wrap {
+  padding: 22px 22px 0 22px;
+}
+
+.expense-actions {
+  margin: 12px 0 20px 0;
+}
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Advisor — Fieldiq AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="ai.css" />
+</head>
+
+<body class="ai-body">
+  <div class="dashboard-shell">
+
+    <!-- ─── Sidebar ─────────────────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-mark">FI</div>
+          <div>
+            <h2>Fieldiq AI</h2>
+            <p>Business Finance OS</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="add-job.html" class="nav-link">Add Job</a>
+          <a href="jobs.html" class="nav-link">Job History</a>
+          <a href="expenses.html" class="nav-link">Expenses</a>
+          <a href="ai.html" class="nav-link ai-link active">AI Advisor</a>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="logout-btn" id="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <!-- ─── Main ─────────────────────────────────────────────────────────── -->
+    <main class="ai-main">
+
+      <!-- ── Upgrade gate ───────────────────────────────────────────────── -->
+      <div id="ai-pro-required" style="display:none;" class="upgrade-gate">
+        <div class="upgrade-orb"></div>
+        <div class="upgrade-content">
+          <p class="upgrade-eyebrow">AI Pro Required</p>
+          <h1 class="upgrade-title">Unlock your<br /><em>financial brain</em></h1>
+          <p class="upgrade-body">
+            The AI Advisor analyzes your real profit, expenses, and job history
+            to give you advice no accountant could give this fast.
+          </p>
+          <div class="upgrade-plans">
+            <div class="upgrade-plan">
+              <span class="plan-name">Starter</span>
+              <span class="plan-price">$49<span>/mo</span></span>
+              <span class="plan-desc">Dashboard + tracking</span>
+            </div>
+            <div class="upgrade-plan upgrade-plan-featured">
+              <span class="plan-badge">You need this</span>
+              <span class="plan-name">AI Pro</span>
+              <span class="plan-price">$99<span>/mo</span></span>
+              <span class="plan-desc">Everything + AI Advisor</span>
+            </div>
+          </div>
+          <button id="upgrade-ai-btn" class="upgrade-btn">Upgrade to AI Pro →</button>
+        </div>
+      </div>
+
+      <!-- ── AI App ─────────────────────────────────────────────────────── -->
+      <div id="ai-app" style="display:none;">
+
+        <!-- Header -->
+        <header class="ai-header">
+          <div class="ai-header-left">
+            <div class="ai-status-dot"></div>
+            <div>
+              <p class="ai-eyebrow">AI Advisor · Live</p>
+              <h1 class="ai-title">Ask your business<br /><em>anything</em></h1>
+            </div>
+          </div>
+          <p class="ai-subtitle">Powered by your real profit, jobs, and expenses.<br />Not generic advice — yours.</p>
+        </header>
+
+        <!-- Prompt buttons -->
+        <div class="ai-prompts-section">
+          <p class="ai-section-label">Quick insights</p>
+          <div class="ai-prompts-grid">
+
+            <button class="ai-prompt-btn" data-prompt="How can I cut costs right now?">
+              <span class="prompt-icon">✂️</span>
+              <span class="prompt-label">Cut Costs</span>
+              <span class="prompt-sub">Find what's draining your profit</span>
+            </button>
+
+            <button class="ai-prompt-btn" data-prompt="Based on my current profit, can I afford to advertise?">
+              <span class="prompt-icon">📣</span>
+              <span class="prompt-label">Advertising</span>
+              <span class="prompt-sub">Can your numbers support it?</span>
+            </button>
+
+            <button class="ai-prompt-btn" data-prompt="How much more profit should I make before scaling?">
+              <span class="prompt-icon">📈</span>
+              <span class="prompt-label">Scaling</span>
+              <span class="prompt-sub">When are you ready to grow?</span>
+            </button>
+
+            <button class="ai-prompt-btn" data-prompt="What is hurting my profit the most right now?">
+              <span class="prompt-icon">🔍</span>
+              <span class="prompt-label">Profit Leaks</span>
+              <span class="prompt-sub">What's killing your margins?</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Custom question -->
+        <div class="ai-custom-section">
+          <p class="ai-section-label">Ask your own question</p>
+          <div class="ai-custom-card">
+            <div class="ai-input-row">
+              <input
+                id="custom-ai-question"
+                type="text"
+                maxlength="140"
+                placeholder="e.g. Should I hire another employee this month?"
+                class="ai-custom-input"
+              />
+              <button id="custom-ai-submit" class="ai-ask-btn">Ask →</button>
+            </div>
+            <p id="question-count" class="ai-char-count">0 / 140</p>
+          </div>
+        </div>
+
+        <!-- Response area -->
+        <div class="ai-response-section">
+          <div class="ai-response-card" id="ai-response-card">
+            <div class="ai-response-header">
+              <div class="ai-response-indicator">
+                <div class="ai-response-dot"></div>
+                <span id="ai-response-status">Fieldiq AI's live advisor is connected and waiting for a message</span>
+              </div>
+            </div>
+            <div class="ai-response-body">
+              <p id="ai-response" class="ai-response-text">
+                Choose a quick insight above or ask your own question to get started.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <p id="user-email" style="display:none;"></p>
+
+  <script type="module" src="ai.js"></script>
+
+  <script>
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2')
+      const supabase = createClient(
+        "https://szyakeozorhmardkdfav.supabase.co",
+        "sb_publishable_WqRLpDuFC8YBkdtOuzGtSg_16n08qa-"
+      )
+      await supabase.auth.signOut()
+      window.location.href = "auth.html"
+    })
+  </script>
+</body>
+</html>

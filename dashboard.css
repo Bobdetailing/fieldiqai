@@ -59,6 +59,12 @@ button, input, select, textarea { font: inherit; }
   color: #ffffff;
   letter-spacing: -0.03em;
   box-shadow: 0 10px 26px rgba(34, 197, 94, 0.23);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.brand-mark:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
 }
 
 .sidebar-brand h2 {
@@ -76,6 +82,153 @@ button, input, select, textarea { font: inherit; }
   font-weight: 500;
   letter-spacing: 0.01em;
 }
+
+/* ─── Profile dropdown ───────────────────────────────────────────────────── */
+
+.profile-dropdown {
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 260px;
+  background: #0d1610;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-dropdown.open {
+  display: flex;
+}
+
+.profile-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-label {
+  margin: 0 0 4px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a7a64;
+  font-weight: 800;
+}
+
+.profile-email {
+  margin: 0;
+  font-size: 13px;
+  color: #a8bbb1;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-field-label {
+  font-size: 11px;
+  color: #5a7a64;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.profile-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #f0f5f2;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.profile-input:focus {
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.profile-save-btn {
+  padding: 8px 12px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 10px;
+  color: #86efac;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease;
+}
+
+.profile-save-btn:hover {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.profile-save-msg {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  min-height: 14px;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-logout-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: #d6dfd9;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.profile-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-delete-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.profile-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* ─── Sidebar nav ────────────────────────────────────────────────────────── */
 
 .sidebar-nav {
   display: flex;
@@ -133,6 +286,8 @@ button, input, select, textarea { font: inherit; }
   background: rgba(255, 255, 255, 0.07);
   transform: translateY(-1px);
 }
+
+/* ─── Main ───────────────────────────────────────────────────────────────── */
 
 .dashboard-main {
   flex: 1;
@@ -233,8 +388,6 @@ button, input, select, textarea { font: inherit; }
   line-height: 1.6;
   font-weight: 500;
 }
-
-/* ─── AI nudge ───────────────────────────────────────────────────────────── */
 
 .hero-ai-nudge {
   display: flex;
@@ -412,8 +565,6 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
   font-weight: 500;
 }
 
-/* ─── Summary card ───────────────────────────────────────────────────────── */
-
 .summary-stats {
   margin-top: 20px;
   display: flex;
@@ -476,66 +627,20 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
 
 @media (max-width: 900px) {
   .dashboard-shell { flex-direction: column; }
-
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 14px 14px 12px;
-    gap: 10px;
-  }
-
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 14px 14px 12px; gap: 10px; }
   .sidebar-brand { margin-bottom: 12px; padding: 0; }
-
-  .sidebar-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
+  .sidebar-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .nav-link { padding: 10px 12px; font-size: 13px; text-align: center; }
   .sidebar-bottom { margin-top: 8px; padding: 0; }
   .logout-btn { padding: 10px 12px; font-size: 13px; }
   .dashboard-main { padding: 16px; }
-
-  .dashboard-topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-
+  .dashboard-topbar { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
   .dashboard-business-name { font-size: 36px; }
-
-  .topbar-user-card {
-    width: 100%;
-    min-width: 0;
-    text-align: left;
-    padding: 14px 16px;
-    border-radius: 16px;
-  }
-
-  .hero-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 18px;
-    border-radius: 18px;
-    margin-bottom: 16px;
-  }
-
+  .topbar-user-card { width: 100%; min-width: 0; text-align: left; padding: 14px 16px; border-radius: 16px; }
+  .hero-banner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 18px; border-radius: 18px; margin-bottom: 16px; }
   .hero-copy h2 { font-size: 22px; }
-
-  .hero-actions {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .hero-primary-btn,
-  .hero-secondary-btn { width: 100%; min-height: 46px; }
-
+  .hero-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero-primary-btn, .hero-secondary-btn { width: 100%; min-height: 46px; }
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
   .featured-card { grid-column: span 2; grid-row: span 1; min-height: 190px; }
   .card { padding: 16px; border-radius: 18px; }
@@ -549,6 +654,7 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
   .action-btn { min-height: 44px; flex: 1; }
   .hero-ai-nudge { flex-direction: column; align-items: flex-start; gap: 10px; }
   .hero-ai-nudge-btn { width: 100%; text-align: center; justify-content: center; display: flex; }
+  .profile-dropdown { width: 240px; }
 }
 
 @media (max-width: 640px) {

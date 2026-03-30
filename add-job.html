@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Job — Fieldiq AI</title>
-
+  <title>Add Job | Fieldiq AI — Track Job Profit for Service Businesses</title>
+  <meta name="description" content="Log jobs and track real profit after employee pay, fuel, and expenses. Built for detailers, landscapers, tree service, and cleaning businesses." />
+  <link rel="canonical" href="https://fieldiqai.com/add-job.html" />
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <link rel="stylesheet" href="add-job.css" />
 </head>
@@ -16,7 +17,6 @@
 <body class="addjob-body">
   <div class="dashboard-shell">
 
-    <!-- ─── Sidebar ─────────────────────────────────────────────────────── -->
     <aside class="sidebar">
       <div>
         <div class="sidebar-brand">
@@ -39,7 +39,6 @@
       </div>
     </aside>
 
-    <!-- ─── Main ──────────────────────────────────────────────────────────── -->
     <main class="addjob-main">
 
       <header class="addjob-header">
@@ -52,10 +51,8 @@
 
       <div class="addjob-grid">
 
-        <!-- ── Left column ──────────────────────────────────────────────── -->
         <div class="addjob-col">
 
-          <!-- Job Info -->
           <div class="card form-card">
             <div class="card-section-label">Job Info</div>
 
@@ -70,7 +67,6 @@
             </div>
           </div>
 
-          <!-- Revenue & Cost -->
           <div class="card form-card">
             <div class="card-section-label">Revenue & Cost</div>
 
@@ -92,22 +88,17 @@
             </div>
           </div>
 
-          <!-- Extra Expenses -->
           <div class="card form-card">
             <div class="card-section-label">Extra Expenses</div>
             <p class="card-helper">Add any job-specific costs like fuel, supplies, or equipment rental.</p>
-
             <div id="expensesContainer"></div>
-
             <button type="button" id="addExpense" class="subtle-btn">+ Add Expense</button>
           </div>
 
         </div>
 
-        <!-- ── Right column ─────────────────────────────────────────────── -->
         <div class="addjob-col">
 
-          <!-- Employees -->
           <div class="card form-card">
             <div class="card-section-label">Employees</div>
 
@@ -119,7 +110,6 @@
               </select>
             </div>
 
-            <!-- Same pay -->
             <div id="samePaySection">
               <div class="field-row">
                 <div class="field">
@@ -162,7 +152,6 @@
               </div>
             </div>
 
-            <!-- Custom pay -->
             <div id="customPaySection" class="hidden">
               <p class="card-helper">Each employee can have different hourly or daily pay.</p>
               <div id="employeeRowsContainer"></div>
@@ -170,7 +159,6 @@
             </div>
           </div>
 
-          <!-- Save -->
           <div class="card save-card">
             <div class="save-summary">
               <p class="save-label">Ready to log this job?</p>

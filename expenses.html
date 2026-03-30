@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expenses — Fieldiq AI</title>
-
+  <title>Expenses | Fieldiq AI — Track Business Expenses for Service Owners</title>
+  <meta name="description" content="Track recurring and one-time business expenses. See upcoming bills and understand exactly what's eating into your profit. Built for service business owners." />
+  <link rel="canonical" href="https://fieldiqai.com/expenses.html" />
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="expenses.css" />
 </head>
 
 <body class="expenses-body">
   <div class="dashboard-shell">
 
-    <!-- ─── Sidebar ─────────────────────────────────────────────────────── -->
     <aside class="sidebar">
       <div>
         <div class="sidebar-brand">
@@ -38,10 +38,8 @@
       </div>
     </aside>
 
-    <!-- ─── Main ─────────────────────────────────────────────────────────── -->
     <main class="expenses-main">
 
-      <!-- Header -->
       <header class="expenses-header">
         <div>
           <p class="eyebrow">Track your spending</p>
@@ -50,7 +48,6 @@
         <button id="toggle-expense-form" class="add-expense-btn" disabled>+ Add Expense</button>
       </header>
 
-      <!-- Fuel cost banner -->
       <div class="fuel-card card">
         <div class="fuel-card-left">
           <p class="card-section-label">Weekly Fuel Cost</p>
@@ -68,7 +65,6 @@
         </div>
       </div>
 
-      <!-- Add expense form -->
       <div id="expense-form-wrap" class="card form-card" style="display:none;">
         <p class="card-section-label">Add Expense</p>
 
@@ -120,7 +116,6 @@
           </div>
         </div>
 
-        <!-- Recurring section -->
         <div id="recurring-section" class="recurring-section hidden">
           <div class="recurring-divider"></div>
           <p class="card-section-label">Recurring Settings</p>
@@ -147,7 +142,6 @@
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="expense-tabs">
         <button class="expense-tab active" data-filter="one-time">One-Time</button>
         <button class="expense-tab" data-filter="daily">Daily</button>
@@ -156,7 +150,6 @@
         <button class="expense-tab" data-filter="yearly">Yearly</button>
       </div>
 
-      <!-- Expenses table -->
       <div class="card table-card">
         <div class="table-wrap">
           <table>
@@ -179,7 +172,6 @@
         </p>
       </div>
 
-      <!-- ─── Upcoming Expenses ─────────────────────────────────────────── -->
       <div class="card upcoming-card">
         <div class="upcoming-header">
           <div>
@@ -215,7 +207,6 @@
     </main>
   </div>
 
-  <!-- ─── Edit Expense Modal ──────────────────────────────────────────────── -->
   <div id="edit-expense-modal" class="modal-overlay" style="display:none;">
     <div class="modal-card">
       <div class="modal-header">

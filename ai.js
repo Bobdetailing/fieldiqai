@@ -229,7 +229,11 @@ async function runAiPrompt(selectedPrompt, customInstructionOverride = null, act
 
   if (companyError || !company) { setResponse("Company not found."); return }
   if (company.subscription_status !== "active") { setResponse("An active subscription is required."); return }
-  if (company.plan_type !== "ai_pro") { showUpgradeState(); return }
+
+  // ── AI PRO LOCK REMOVED FOR FREE LAUNCH ────────────────────────────────────
+  // Uncomment when payments go live:
+  // if (company.plan_type !== "ai_pro") { showUpgradeState(); return }
+  // ───────────────────────────────────────────────────────────────────────────
 
   const { data: jobs, error: jobsError } = await supabase
     .from("jobs").select("revenue, cost, date").eq("company_id", company.id)
@@ -311,12 +315,16 @@ async function initializeAiPage() {
     .from("companies").select("*").eq("owner_user_id", user.id).single()
 
   if (companyError || !company) { window.location.href = "onboarding.html"; return }
-  if (company.subscription_status !== "active") { window.location.href = "paywall.html"; return }
 
-  if (company.plan_type !== "ai_pro") {
-    showUpgradeState()
-    return
-  }
+  // ── PAYWALL REMOVED FOR FREE LAUNCH ────────────────────────────────────────
+  // Uncomment when payments go live:
+  // if (company.subscription_status !== "active") { window.location.href = "paywall.html"; return }
+  // ───────────────────────────────────────────────────────────────────────────
+
+  // ── AI PRO LOCK REMOVED FOR FREE LAUNCH ────────────────────────────────────
+  // Uncomment when payments go live:
+  // if (company.plan_type !== "ai_pro") { showUpgradeState(); return }
+  // ───────────────────────────────────────────────────────────────────────────
 
   currentBusinessName = getBusinessName(company)
 

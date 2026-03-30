@@ -157,13 +157,11 @@ function calculateProfitTotals(jobs, expenses) {
   }
 }
 
-// ─── Summary stats for "This Month" card ─────────────────────────────────────
 function calculateMonthlySummary(jobs, expenses) {
   const now = new Date()
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
   const today = getTodayDateOnly()
 
-  // Jobs completed this month
   const monthJobs = (jobs || []).filter(job => {
     if (!job.date) return false
     const d = getLocalDate(job.date)
@@ -174,7 +172,6 @@ function calculateMonthlySummary(jobs, expenses) {
   const totalRevenue = monthJobs.reduce((sum, job) => sum + (Number(job.revenue) || 0), 0)
   const totalJobCost = monthJobs.reduce((sum, job) => sum + (Number(job.cost) || 0), 0)
 
-  // Expenses incurred this month (recurring + one-time)
   let totalExpenses = 0
   const cursor = new Date(startOfMonth)
   while (cursor <= today) {
@@ -208,12 +205,9 @@ function renderMonthlySummary(summary) {
   }
 }
 
-// ─── Chart data builders ──────────────────────────────────────────────────────
-
 function buildDailyChartData(jobs, expenses) {
   const now = new Date()
   const result = []
-
   for (let i = 6; i >= 0; i--) {
     const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i)
     result.push({
@@ -221,68 +215,57 @@ function buildDailyChartData(jobs, expenses) {
       profit: getProfitForDate(jobs, expenses, date)
     })
   }
-
   return result
 }
 
 function buildWeeklyChartData(jobs, expenses) {
   const now = new Date()
   const result = []
-
   for (let i = 7; i >= 0; i--) {
     const weekStart = getWeekStart(
       new Date(now.getFullYear(), now.getMonth(), now.getDate() - (i * 7))
     )
     const weekEnd = new Date(weekStart)
     weekEnd.setDate(weekEnd.getDate() + 6)
-
     result.push({
       label: weekStart.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
       profit: sumProfitBetweenDates(jobs, expenses, weekStart, weekEnd)
     })
   }
-
   return result
 }
 
 function buildMonthlyChartData(jobs, expenses) {
   const now = new Date()
   const result = []
-
   for (let i = 11; i >= 0; i--) {
     const start = new Date(now.getFullYear(), now.getMonth() - i, 1)
     const end = new Date(start.getFullYear(), start.getMonth() + 1, 0)
-
     result.push({
       label: start.toLocaleDateString("en-US", { month: "short" }),
       profit: sumProfitBetweenDates(jobs, expenses, start, end)
     })
   }
-
   return result
 }
 
 function buildYearlyChartData(jobs, expenses) {
   const currentYear = new Date().getFullYear()
   const result = []
-
   for (let month = 0; month < 12; month++) {
     const start = new Date(currentYear, month, 1)
     const end = new Date(currentYear, month + 1, 0)
-
     result.push({
       label: new Date(currentYear, month, 1).toLocaleDateString("en-US", { month: "short" }),
       profit: sumProfitBetweenDates(jobs, expenses, start, end)
     })
   }
-
   return result
 }
 
 function buildAllTimeChartData(jobs, expenses) {
   const today = getTodayDateOnly()
   const earliestDate = getEarliestDate(jobs, expenses)
-
   if (!earliestDate) return []
 
   const result = []
@@ -301,13 +284,10 @@ function buildAllTimeChartData(jobs, expenses) {
   return result
 }
 
-// ─── Upcoming expenses ────────────────────────────────────────────────────────
-
 function getUpcomingExpenses(expenses) {
   const today = getTodayDateOnly()
   const endDate = new Date(today)
   endDate.setDate(endDate.getDate() + 30)
-
   const results = []
 
   ;(expenses || []).forEach(expense => {
@@ -378,18 +358,10 @@ function getUpcomingExpenses(expenses) {
 function renderUpcomingExpenses(expenses) {
   const body = document.getElementById("upcoming-expenses-body")
   const empty = document.getElementById("no-upcoming-expenses")
-
   if (!body || !empty) return
-
   body.innerHTML = ""
-
-  if (!expenses.length) {
-    empty.style.display = "block"
-    return
-  }
-
+  if (!expenses.length) { empty.style.display = "block"; return }
   empty.style.display = "none"
-
   expenses.forEach(expense => {
     const row = document.createElement("tr")
     row.innerHTML = `
@@ -403,7 +375,6 @@ function renderUpcomingExpenses(expenses) {
   })
 }
 
-// ─── Color stat numbers red/green ─────────────────────────────────────────────
 function colorStatValue(id, value) {
   const el = document.getElementById(id)
   if (!el) return
@@ -419,8 +390,6 @@ function getBusinessName(company) {
     "Your Business"
   )
 }
-
-// ─── Main loader ──────────────────────────────────────────────────────────────
 
 async function loadDashboard() {
   const { data: { user }, error: userError } = await supabase.auth.getUser()
@@ -447,10 +416,13 @@ async function loadDashboard() {
   const businessNameElement = document.getElementById("business-name")
   if (businessNameElement) businessNameElement.innerText = getBusinessName(company)
 
-  if (!company.subscription_status || company.subscription_status !== "active") {
-    window.location.href = "paywall.html"
-    return
-  }
+  // ── PAYWALL REMOVED FOR FREE LAUNCH ──────────────────────────────────────
+  // Uncomment this block when payments go live:
+  // if (!company.subscription_status || company.subscription_status !== "active") {
+  //   window.location.href = "paywall.html"
+  //   return
+  // }
+  // ─────────────────────────────────────────────────────────────────────────
 
   const { data: jobs, error: jobsError } = await supabase
     .from("jobs")
@@ -469,14 +441,13 @@ async function loadDashboard() {
   const safeJobs = jobs || []
   const safeExpenses = expenses || []
 
-  // ── Profit totals
   const totals = calculateProfitTotals(safeJobs, safeExpenses)
 
   const fields = [
-    ["daily-profit",   totals.daily],
-    ["weekly-profit",  totals.weekly],
-    ["monthly-profit", totals.monthly],
-    ["yearly-profit",  totals.yearly],
+    ["daily-profit",    totals.daily],
+    ["weekly-profit",   totals.weekly],
+    ["monthly-profit",  totals.monthly],
+    ["yearly-profit",   totals.yearly],
     ["all-time-profit", totals.allTime],
   ]
 
@@ -486,17 +457,13 @@ async function loadDashboard() {
     colorStatValue(id, value)
   })
 
-  // ── Charts — color matches the stat value
   renderChart("dailyChart",   buildDailyChartData(safeJobs, safeExpenses),   totals.daily)
   renderChart("weeklyChart",  buildWeeklyChartData(safeJobs, safeExpenses),  totals.weekly)
   renderChart("monthlyChart", buildMonthlyChartData(safeJobs, safeExpenses), totals.monthly)
   renderChart("yearlyChart",  buildYearlyChartData(safeJobs, safeExpenses),  totals.yearly)
   renderChart("allTimeChart", buildAllTimeChartData(safeJobs, safeExpenses), totals.allTime)
 
-  // ── Monthly summary card
   renderMonthlySummary(calculateMonthlySummary(safeJobs, safeExpenses))
-
-  // ── Upcoming expenses
   renderUpcomingExpenses(getUpcomingExpenses(safeExpenses))
 }
 

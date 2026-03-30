@@ -31,14 +31,10 @@ function updateNewBusinessMode() {
   expenseInputs.forEach((input) => {
     if (!input) return;
     input.disabled = isNewBusiness;
-    if (isNewBusiness) {
-      input.value = "";
-    }
+    if (isNewBusiness) input.value = "";
 
     const card = input.closest(".input-card");
-    if (card) {
-      card.classList.toggle("disabled-card", isNewBusiness);
-    }
+    if (card) card.classList.toggle("disabled-card", isNewBusiness);
   });
 }
 
@@ -61,15 +57,9 @@ async function setupCompany() {
 
   const companyName = document.getElementById("company-name").value.trim();
   const weeklyGas = isNewBusiness ? 0 : parseFloat(document.getElementById("weekly-gas").value) || 0;
-  const monthlyVehicleInsurance = isNewBusiness
-    ? 0
-    : parseFloat(document.getElementById("monthly-vehicle-insurance").value) || 0;
-  const monthlyEquipmentUpkeep = isNewBusiness
-    ? 0
-    : parseFloat(document.getElementById("monthly-equipment-upkeep").value) || 0;
-  const monthlyLiabilityInsurance = isNewBusiness
-    ? 0
-    : parseFloat(document.getElementById("monthly-liability-insurance").value) || 0;
+  const monthlyVehicleInsurance = isNewBusiness ? 0 : parseFloat(document.getElementById("monthly-vehicle-insurance").value) || 0;
+  const monthlyEquipmentUpkeep = isNewBusiness ? 0 : parseFloat(document.getElementById("monthly-equipment-upkeep").value) || 0;
+  const monthlyLiabilityInsurance = isNewBusiness ? 0 : parseFloat(document.getElementById("monthly-liability-insurance").value) || 0;
 
   if (!companyName) {
     showMessage("Please enter your business name.");
@@ -78,12 +68,7 @@ async function setupCompany() {
 
   if (
     !isNewBusiness &&
-    (
-      weeklyGas <= 0 ||
-      monthlyVehicleInsurance <= 0 ||
-      monthlyEquipmentUpkeep <= 0 ||
-      monthlyLiabilityInsurance <= 0
-    )
+    (weeklyGas <= 0 || monthlyVehicleInsurance <= 0 || monthlyEquipmentUpkeep <= 0 || monthlyLiabilityInsurance <= 0)
   ) {
     showMessage("Please fill out all 4 required basic expenses, or choose the new business option.");
     return;
@@ -106,15 +91,16 @@ async function setupCompany() {
   let companyId = existingCompany?.id || null;
 
   if (!companyId) {
+    // ── New user — create company with active basic plan automatically ──────
     const { data: newCompany, error: companyInsertError } = await supabase
       .from("companies")
-      .insert([
-        {
-          owner_user_id: user.id,
-          name: companyName,
-          estimated_weekly_gas_expense: weeklyGas,
-        },
-      ])
+      .insert([{
+        owner_user_id: user.id,
+        name: companyName,
+        estimated_weekly_gas_expense: weeklyGas,
+        subscription_status: "active",   // free launch — everyone gets in
+        plan_type: "basic",              // default plan
+      }])
       .select()
       .single();
 
@@ -126,11 +112,14 @@ async function setupCompany() {
 
     companyId = newCompany.id;
   } else {
+    // ── Existing user updating their company ─────────────────────────────────
     const { error: companyUpdateError } = await supabase
       .from("companies")
       .update({
         name: companyName,
         estimated_weekly_gas_expense: weeklyGas,
+        subscription_status: "active",
+        plan_type: "basic",
       })
       .eq("id", companyId);
 
@@ -198,7 +187,7 @@ async function setupCompany() {
     },
   ];
 
-  const expenseTitles = requiredExpenses.map((expense) => expense.title);
+  const expenseTitles = requiredExpenses.map(e => e.title);
 
   const { data: existingExpenses, error: existingExpensesError } = await supabase
     .from("expenses")
@@ -212,10 +201,8 @@ async function setupCompany() {
     return;
   }
 
-  const existingTitles = new Set((existingExpenses || []).map((expense) => expense.title));
-  const expensesToInsert = requiredExpenses.filter(
-    (expense) => !existingTitles.has(expense.title)
-  );
+  const existingTitles = new Set((existingExpenses || []).map(e => e.title));
+  const expensesToInsert = requiredExpenses.filter(e => !existingTitles.has(e.title));
 
   if (expensesToInsert.length > 0) {
     const { error: expensesInsertError } = await supabase
@@ -229,10 +216,11 @@ async function setupCompany() {
     }
   }
 
-  showMessage("Setup complete! Sending you to plans...", "success");
+  // ── Redirect straight to dashboard — no paywall during free launch ────────
+  showMessage("Setup complete! Taking you to your dashboard...", "success");
 
   setTimeout(() => {
-    window.location.href = "paywall.html";
+    window.location.href = "dashboard.html";
   }, 700);
 }
 

@@ -1,8 +1,8 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createClient } from 'https://s://esm.sh/@supabase/supabase-js@2'
 import { renderChart } from "./charts.js"
 
 const supabase = createClient(
-  "https://szyakeozorhmardkdfav.supabase.co",
+  "https://s://szyakeozorhmardkdfav.supabase.co",
   "sb_publishable_WqRLpDuFC8YBkdtOuzGtSg_16n08qa-"
 )
 

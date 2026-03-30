@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://s://fieldiqai.com/sitemap.xml
+Sitemap: https://fieldiqai.com/sitemap.xml

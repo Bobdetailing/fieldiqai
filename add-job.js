@@ -1,4 +1,4 @@
-const SUPABASE_URL = "https://s://szyakeozorhmardkdfav.supabase.co"
+const SUPABASE_URL = "https://szyakeozorhmardkdfav.supabase.co"
 const SUPABASE_KEY = "sb_publishable_WqRLpDuFC8YBkdtOuzGtSg_16n08qa-"
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY)

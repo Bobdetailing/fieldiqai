@@ -1,7 +1,7 @@
-import { createClient } from "https://s://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const supabase = createClient(
-  "https://s://szyakeozorhmardkdfav.supabase.co",
+  "https://szyakeozorhmardkdfav.supabase.co",
   "sb_publishable_WqRLpDuFC8YBkdtOuzGtSg_16n08qa-"
 );
 

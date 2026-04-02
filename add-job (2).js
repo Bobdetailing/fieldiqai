@@ -18,9 +18,11 @@ function toggleSamePayFields() {
   if (payType.value === "hourly") {
     hourlyFields.classList.remove("hidden")
     dailyFields.classList.add("hidden")
+    document.getElementById("daily-pay-info").classList.add("hidden")
   } else {
     hourlyFields.classList.add("hidden")
     dailyFields.classList.remove("hidden")
+    document.getElementById("daily-pay-info").classList.remove("hidden")
   }
 }
 
@@ -28,9 +30,7 @@ function togglePayMode() {
   if (payMode.value === "custom") {
     samePaySection.classList.add("hidden")
     customPaySection.classList.remove("hidden")
-    if (employeeRowsContainer.children.length === 0) {
-      addEmployeeRow()
-    }
+    if (employeeRowsContainer.children.length === 0) addEmployeeRow()
   } else {
     samePaySection.classList.remove("hidden")
     customPaySection.classList.add("hidden")
@@ -53,9 +53,7 @@ function updateEmployeeRow(row) {
   const type = row.querySelector(".custom-pay-type")?.value
   const hoursInput = row.querySelector(".custom-hours")
   const rateInput = row.querySelector(".custom-rate")
-
   if (!hoursInput || !rateInput) return
-
   if (type === "hourly") {
     hoursInput.style.display = "block"
     hoursInput.placeholder = "Hours"
@@ -78,9 +76,7 @@ function addEmployeeRow() {
     <input type="number" step="0.01" class="custom-hours" placeholder="Hours" />
     <input type="number" step="0.01" class="custom-rate" placeholder="Hourly Rate ($)" />
   `
-
   employeeRowsContainer.appendChild(div)
-
   const typeSelect = div.querySelector(".custom-pay-type")
   typeSelect.addEventListener("change", () => updateEmployeeRow(div))
   updateEmployeeRow(div)
@@ -89,47 +85,48 @@ function addEmployeeRow() {
 function calculateEmployeeTotal() {
   if (payMode.value === "custom") {
     let total = 0
-    const rows = document.querySelectorAll(".employee-row")
-    rows.forEach(row => {
+    document.querySelectorAll(".employee-row").forEach(row => {
       const type = row.querySelector(".custom-pay-type")?.value
       const hours = parseFloat(row.querySelector(".custom-hours")?.value) || 0
       const rate = parseFloat(row.querySelector(".custom-rate")?.value) || 0
-      if (type === "hourly") {
-        total += hours * rate
-      } else {
-        total += rate
-      }
+      total += type === "hourly" ? hours * rate : rate
     })
     return total
   }
-
-  const employeeCount = parseFloat(document.getElementById("employeeCount").value) || 1
-
+  const count = parseFloat(document.getElementById("employeeCount").value) || 1
   if (payType.value === "hourly") {
     const hours = parseFloat(document.getElementById("employeeHours").value) || 0
     const rate = parseFloat(document.getElementById("employeePay").value) || 0
-    return hours * rate * employeeCount
+    return hours * rate * count
   }
-
-  const dailyPay = parseFloat(document.getElementById("employeeDaily").value) || 0
-  return dailyPay * employeeCount
+  const daily = parseFloat(document.getElementById("employeeDaily").value) || 0
+  return daily * count
 }
 
 function calculateExtraExpenses() {
   let total = 0
-  const rows = document.querySelectorAll(".expense-row")
-  rows.forEach(row => {
+  document.querySelectorAll(".expense-row").forEach(row => {
     const inputs = row.querySelectorAll("input")
-    const amount = parseFloat(inputs[1]?.value) || 0
-    total += amount
+    total += parseFloat(inputs[1]?.value) || 0
   })
   return total
 }
 
-function getLocalDateString(dateStr) {
-  // Parse as local date to avoid timezone issues
-  const [year, month, day] = dateStr.split("-").map(Number)
-  return new Date(year, month - 1, day)
+function getLocalDateString(date) {
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, "0") + "-" +
+    String(date.getDate()).padStart(2, "0")
+}
+
+function isUsingDailyPay() {
+  if (payMode.value === "same" && payType.value === "daily") return true
+  if (payMode.value === "custom") {
+    const rows = document.querySelectorAll(".employee-row")
+    for (const row of rows) {
+      if (row.querySelector(".custom-pay-type")?.value === "daily") return true
+    }
+  }
+  return false
 }
 
 async function saveJob() {
@@ -137,67 +134,101 @@ async function saveJob() {
     const jobTitle = document.getElementById("jobTitle").value.trim() || "Job"
     const revenue = parseFloat(document.getElementById("revenue").value) || 0
     const baseCost = parseFloat(document.getElementById("cost").value) || 0
-    const selectedJobDate = document.getElementById("jobDate")?.value ||
-      (() => {
-        const now = new Date()
-        return now.getFullYear() + "-" +
-          String(now.getMonth() + 1).padStart(2, "0") + "-" +
-          String(now.getDate()).padStart(2, "0")
-      })()
+    const selectedDate = document.getElementById("jobDate")?.value || getLocalDateString(new Date())
 
-    // Validate date — allow up to 3 days in the future
-    const jobDate = getLocalDateString(selectedJobDate)
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const maxAllowed = new Date(today)
-    maxAllowed.setDate(maxAllowed.getDate() + 3)
-
-    if (jobDate > maxAllowed) {
+    // Validate date — max 3 days future
+    const [y, m, d] = selectedDate.split("-").map(Number)
+    const jobDate = new Date(y, m - 1, d)
+    const today = new Date(); today.setHours(0,0,0,0)
+    const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 3)
+    if (jobDate > maxDate) {
       alert("Job date can't be more than 3 days in the future.")
       return
     }
 
-    const employeeTotal = calculateEmployeeTotal()
     const extraExpenses = calculateExtraExpenses()
-    const totalCost = baseCost + employeeTotal + extraExpenses
+    const employeeTotal = calculateEmployeeTotal()
+    const usingDaily = isUsingDailyPay()
 
     const { data: { user } } = await supabaseClient.auth.getUser()
-
-    if (!user) {
-      alert("User not logged in")
-      return
-    }
+    if (!user) { alert("Not logged in"); return }
 
     const { data: company, error: companyError } = await supabaseClient
-      .from("companies")
-      .select("*")
-      .eq("owner_user_id", user.id)
-      .single()
+      .from("companies").select("*").eq("owner_user_id", user.id).single()
+    if (companyError || !company) { alert("Company not found"); return }
 
-    if (companyError || !company) {
-      console.error(companyError)
-      alert("Company not found")
-      return
-    }
+    if (usingDaily) {
+      // ── Daily pay mode: split across all jobs that day ──────────────────
 
-    const { error } = await supabaseClient
-      .from("jobs")
-      .insert([{
-        company_id: company.id,
-        title: jobTitle,
-        revenue: revenue,
-        cost: totalCost,
-        status: "completed",
-        date: selectedJobDate
-      }])
+      // 1. Fetch all existing jobs for this date
+      const { data: existingJobs } = await supabaseClient
+        .from("jobs")
+        .select("id, cost, revenue")
+        .eq("company_id", company.id)
+        .eq("date", selectedDate)
 
-    if (error) {
-      console.error("Supabase Insert Error:", error)
-      alert("Error saving job")
-      return
+      const existingCount = (existingJobs || []).length
+      const totalJobsToday = existingCount + 1 // including this new one
+      const dailyPayShare = employeeTotal / totalJobsToday
+
+      // 2. Recalculate cost for this new job
+      const newJobCost = baseCost + dailyPayShare + extraExpenses
+
+      // 3. Save the new job
+      const { error: insertError } = await supabaseClient
+        .from("jobs")
+        .insert([{
+          company_id: company.id,
+          title: jobTitle,
+          revenue,
+          cost: newJobCost,
+          status: "completed",
+          date: selectedDate
+        }])
+
+      if (insertError) { alert("Error saving job"); return }
+
+      // 4. Update all existing jobs from today — recalculate their employee share
+      if (existingJobs && existingJobs.length > 0) {
+        for (const job of existingJobs) {
+          // Get the non-employee portion of their cost
+          // We store total cost so we need to redistribute the daily pay share
+          // Each existing job gets the same new dailyPayShare
+          const { data: fullJob } = await supabaseClient
+            .from("jobs").select("*").eq("id", job.id).single()
+
+          if (fullJob) {
+            // Recalculate: remove old daily pay share, add new one
+            const oldShare = employeeTotal / existingCount
+            const nonEmployeeCost = fullJob.cost - oldShare
+            const updatedCost = nonEmployeeCost + dailyPayShare
+
+            await supabaseClient
+              .from("jobs")
+              .update({ cost: updatedCost })
+              .eq("id", job.id)
+          }
+        }
+      }
+
+    } else {
+      // ── Hourly/non-daily pay: normal save ────────────────────────────────
+      const totalCost = baseCost + employeeTotal + extraExpenses
+      const { error } = await supabaseClient
+        .from("jobs")
+        .insert([{
+          company_id: company.id,
+          title: jobTitle,
+          revenue,
+          cost: totalCost,
+          status: "completed",
+          date: selectedDate
+        }])
+      if (error) { alert("Error saving job"); return }
     }
 
     window.location.href = "dashboard.html"
+
   } catch (err) {
     console.error("Unexpected error:", err)
     alert("Unexpected error saving job")

@@ -7,6 +7,7 @@ const supabase = createClient(
 
 const FUNCTION_NAME = "hyper-endpoint"
 const MAX_CUSTOM_QUESTION_LENGTH = 140
+const DAILY_AI_LIMIT = 10
 
 let currentBusinessName = "your business"
 
@@ -31,6 +32,41 @@ Focus on whether the business is financially ready to scale. Be direct and speci
 Start your response with ONE short punchy sentence (max 15 words) that names the biggest problem directly — like "Your recurring expenses are eating most of what you bring in." Then break it down.
 Focus on identifying the biggest things currently reducing profit. Be blunt and useful. No fluff.`
   }
+}
+
+// ─── Daily limit helpers ──────────────────────────────────────────────────────
+
+function getTodayKey(userId) {
+  const now = new Date()
+  const dateStr = now.getFullYear() + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0")
+  return `ai_usage_${userId}_${dateStr}`
+}
+
+function getUsageCount(userId) {
+  const key = getTodayKey(userId)
+  return parseInt(localStorage.getItem(key) || "0", 10)
+}
+
+function incrementUsage(userId) {
+  const key = getTodayKey(userId)
+  const current = getUsageCount(userId)
+  localStorage.setItem(key, current + 1)
+}
+
+function updateUsageDisplay(userId) {
+  const count = getUsageCount(userId)
+  const remaining = Math.max(0, DAILY_AI_LIMIT - count)
+  const el = document.getElementById("ai-usage-counter")
+  if (el) {
+    el.textContent = `${remaining} AI request${remaining === 1 ? "" : "s"} remaining today`
+    el.className = remaining <= 2 ? "ai-usage-counter low" : "ai-usage-counter"
+  }
+}
+
+function isLimitReached(userId) {
+  return getUsageCount(userId) >= DAILY_AI_LIMIT
 }
 
 // ─── Visual state helpers ─────────────────────────────────────────────────────
@@ -59,6 +95,12 @@ function setResponse(text) {
 function setActivePrompt(btn) {
   document.querySelectorAll(".ai-prompt-btn").forEach(b => b.classList.remove("active"))
   if (btn) btn.classList.add("active")
+}
+
+function setLimitReached() {
+  const overlay = document.getElementById("limit-overlay")
+  if (overlay) overlay.classList.add("open")
+  setStatusMessage("Daily limit reached — resets at midnight")
 }
 
 // ─── Format helpers ───────────────────────────────────────────────────────────
@@ -209,6 +251,16 @@ function showAiState() {
 // ─── Run AI prompt ────────────────────────────────────────────────────────────
 
 async function runAiPrompt(selectedPrompt, customInstructionOverride = null, activeBtn = null) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) { window.location.href = "auth.html"; return }
+
+  // Check daily limit
+  if (isLimitReached(user.id)) {
+    setLimitReached()
+    updateUsageDisplay(user.id)
+    return
+  }
+
   setThinking()
   setActivePrompt(activeBtn)
 
@@ -220,9 +272,6 @@ async function runAiPrompt(selectedPrompt, customInstructionOverride = null, act
     if (!config) { setResponse("Invalid AI option selected."); return }
     instruction = config.instruction
   }
-
-  const { data: { user }, error: userError } = await supabase.auth.getUser()
-  if (userError || !user) { window.location.href = "auth.html"; return }
 
   const { data: company, error: companyError } = await supabase
     .from("companies").select("*").eq("owner_user_id", user.id).single()
@@ -270,6 +319,10 @@ ${instruction}
 
   if (error) { console.error("AI invoke error:", error); setResponse("Failed to get AI response."); return }
   if (data?.error) { console.error("AI function error:", data); setResponse(data.error || "AI request failed."); return }
+
+  // Increment usage after successful response
+  incrementUsage(user.id)
+  updateUsageDisplay(user.id)
 
   setResponse(data?.answer || "No response returned.")
 }
@@ -329,6 +382,7 @@ async function initializeAiPage() {
   currentBusinessName = getBusinessName(company)
 
   showAiState()
+  updateUsageDisplay(user.id)
 
   document.querySelectorAll(".ai-prompt-btn").forEach(button => {
     button.addEventListener("click", () => {

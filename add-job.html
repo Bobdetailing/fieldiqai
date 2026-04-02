@@ -55,6 +55,7 @@
 
           <div class="card form-card">
             <div class="card-section-label">Job Info</div>
+            <p class="card-helper">Log each job separately. Add all jobs from today one at a time — employee pay will be split across them automatically.</p>
 
             <div class="field">
               <label for="jobTitle">Job Title</label>
@@ -101,6 +102,7 @@
 
           <div class="card form-card">
             <div class="card-section-label">Employees</div>
+            <p class="card-helper">If your crew works a full day across multiple jobs, enter their <strong>total daily pay</strong> here. Fieldiq will automatically split it evenly across all jobs you log for that day.</p>
 
             <div class="field">
               <label for="payMode">Pay Setup</label>
@@ -120,7 +122,7 @@
                   <label for="payType">Pay Type</label>
                   <select id="payType">
                     <option value="hourly">Hourly</option>
-                    <option value="daily">Daily</option>
+                    <option value="daily">Daily (full day)</option>
                   </select>
                 </div>
               </div>
@@ -148,12 +150,13 @@
                     <span class="input-prefix">$</span>
                     <input id="employeeDaily" type="number" step="0.01" placeholder="0.00" />
                   </div>
+                  <p class="field-note">This is the total pay for one employee for the full day. If you have multiple jobs today, this cost is split evenly across all of them automatically.</p>
                 </div>
               </div>
             </div>
 
             <div id="customPaySection" class="hidden">
-              <p class="card-helper">Each employee can have different hourly or daily pay.</p>
+              <p class="card-helper">Each employee can have different hourly or daily pay. For daily pay, the amount is split across all jobs you log today.</p>
               <div id="employeeRowsContainer"></div>
               <button type="button" id="addEmployeeRow" class="subtle-btn">+ Add Employee</button>
             </div>
@@ -176,8 +179,21 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const dateInput = document.getElementById("jobDate")
-      const today = new Date().toISOString().split("T")[0]
-      dateInput.value = today
+
+      // Fix timezone issue — use local date not UTC
+      const now = new Date()
+      const localDate = now.getFullYear() + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        String(now.getDate()).padStart(2, "0")
+      dateInput.value = localDate
+
+      // Allow up to 3 days in the future
+      const maxDate = new Date()
+      maxDate.setDate(maxDate.getDate() + 3)
+      const maxLocal = maxDate.getFullYear() + "-" +
+        String(maxDate.getMonth() + 1).padStart(2, "0") + "-" +
+        String(maxDate.getDate()).padStart(2, "0")
+      dateInput.max = maxLocal
     })
 
     async function logout() {

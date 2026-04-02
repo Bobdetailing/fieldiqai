@@ -126,14 +126,36 @@ function calculateExtraExpenses() {
   return total
 }
 
+function getLocalDateString(dateStr) {
+  // Parse as local date to avoid timezone issues
+  const [year, month, day] = dateStr.split("-").map(Number)
+  return new Date(year, month - 1, day)
+}
+
 async function saveJob() {
   try {
     const jobTitle = document.getElementById("jobTitle").value.trim() || "Job"
     const revenue = parseFloat(document.getElementById("revenue").value) || 0
     const baseCost = parseFloat(document.getElementById("cost").value) || 0
-    const selectedJobDate =
-      document.getElementById("jobDate")?.value ||
-      new Date().toISOString().split("T")[0]
+    const selectedJobDate = document.getElementById("jobDate")?.value ||
+      (() => {
+        const now = new Date()
+        return now.getFullYear() + "-" +
+          String(now.getMonth() + 1).padStart(2, "0") + "-" +
+          String(now.getDate()).padStart(2, "0")
+      })()
+
+    // Validate date — allow up to 3 days in the future
+    const jobDate = getLocalDateString(selectedJobDate)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const maxAllowed = new Date(today)
+    maxAllowed.setDate(maxAllowed.getDate() + 3)
+
+    if (jobDate > maxAllowed) {
+      alert("Job date can't be more than 3 days in the future.")
+      return
+    }
 
     const employeeTotal = calculateEmployeeTotal()
     const extraExpenses = calculateExtraExpenses()

@@ -36,8 +36,16 @@ interactiveCards.forEach((card) => {
   });
 });
 
-// ── TYPEWRITER EFFECT ─────────────────────────────────────────────────
-const trades = ["detailers", "landscapers", "tree service", "cleaners", "pressure washers", "contractors"];
+// ── TYPEWRITER ────────────────────────────────────────────────────────
+const trades = [
+  "tree service companies",
+  "arborists",
+  "land clearing crews",
+  "stump grinding companies",
+  "tree trimming contractors",
+  "high ticket trades"
+];
+
 let tradeIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
@@ -55,10 +63,10 @@ function type() {
     typeEl.textContent = current.substring(0, charIndex);
   }
 
-  let delay = isDeleting ? 60 : 110;
+  let delay = isDeleting ? 55 : 100;
 
   if (!isDeleting && charIndex === current.length) {
-    delay = 1800;
+    delay = 2000;
     isDeleting = true;
   } else if (isDeleting && charIndex === 0) {
     isDeleting = false;

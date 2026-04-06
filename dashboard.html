@@ -511,7 +511,7 @@
 
     document.getElementById("profile-logout").addEventListener("click", async () => {
       await supabase.auth.signOut()
-      window.location.href = "auth.html"
+      window.location.href = "/auth.html"
     })
 
     document.getElementById("profile-delete").addEventListener("click", async () => {
@@ -525,7 +525,7 @@
         await supabase.from("companies").delete().eq("id", companyId)
       }
       await supabase.auth.signOut()
-      window.location.href = "auth.html"
+      window.location.href = "/"
     })
   </script>
 </body>

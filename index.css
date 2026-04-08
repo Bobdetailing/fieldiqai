@@ -68,7 +68,7 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
-.logo { width: 340px; max-width: 52vw; height: auto; }
+.logo { width: 280px; max-width: 46vw; height: auto; }
 
 .nav-links {
   display: flex;
@@ -229,6 +229,35 @@ a { text-decoration: none; color: inherit; }
   gap: 14px;
   flex-wrap: wrap;
   margin-top: 32px;
+}
+
+.hero-testimonial {
+  margin-top: 28px;
+  padding: 18px 24px;
+  border-left: 3px solid var(--green);
+  background: rgba(95, 165, 36, 0.05);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.testimonial-quote {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.testimonial-source {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 /* ── DASHBOARD PREVIEW ───────────────────────────────────────────────── */
@@ -896,7 +925,7 @@ a { text-decoration: none; color: inherit; }
   gap: 10px;
 }
 
-.footer-logo { width: 220px; max-width: 100%; }
+.footer-logo { width: 160px; max-width: 100%; }
 
 .footer-left p {
   color: var(--text-muted);

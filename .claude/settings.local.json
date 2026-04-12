@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls c:/Users/cherr/OneDrive/Desktop/FieldIQ/*.png c:/Users/cherr/OneDrive/Desktop/FieldIQ/*.ico)"
+    ]
+  }
+}

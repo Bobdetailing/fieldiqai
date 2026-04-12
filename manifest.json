@@ -1,0 +1,22 @@
+{
+  "name": "Fieldiq AI",
+  "short_name": "Fieldiq",
+  "description": "The financial brain for service businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0f0d",
+  "theme_color": "#5fa524",
+  "icons": [
+    {
+      "src": "fieldiq-sun.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "fieldiqbrowser.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

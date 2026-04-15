@@ -15,7 +15,6 @@
     gtag('js', new Date());
     gtag('config', 'G-ZNZWNS5DR9');
   </script>
-  <link rel="canonical" href="https://fieldiqai.com/dashboard.html" />
   <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -234,6 +233,55 @@
     </div>
   </div>
 
+  <!-- ── DELETE ACCOUNT MODAL ─────────────────────────────────────────── -->
+  <div id="fiq-delete-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:99999; align-items:center; justify-content:center; font-family:'Inter',sans-serif;">
+    <div style="background:#0d1610; border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:28px; width:100%; max-width:380px; margin:1rem;">
+
+      <!-- Icon -->
+      <div style="width:44px; height:44px; border-radius:12px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.2); display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 2h4M3 5h14M5 5l1 12a1 1 0 001 1h6a1 1 0 001-1L15 5" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.5 9v5M11.5 9v5" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <h2 style="font-size:1.05rem; font-weight:800; color:#f0f4ee; margin:0 0 8px;">Delete your account</h2>
+      <p style="font-size:0.875rem; color:#7a917a; line-height:1.6; margin:0 0 16px;">
+        This permanently deletes your account, all jobs, expenses, and data. <strong style="color:#a8bbb1; font-weight:600;">There's no going back.</strong>
+      </p>
+
+      <!-- Warning box -->
+      <div style="display:flex; align-items:flex-start; gap:10px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.12); border-radius:12px; padding:12px 14px; margin-bottom:20px;">
+        <div style="width:6px; height:6px; border-radius:50%; background:#ef4444; flex-shrink:0; margin-top:5px;"></div>
+        <p style="font-size:0.82rem; color:#e87878; margin:0; line-height:1.5;">All jobs, expenses, and your business data will be wiped immediately.</p>
+      </div>
+
+      <!-- Type to confirm -->
+      <p style="font-size:0.78rem; font-weight:700; color:#7a917a; letter-spacing:0.06em; text-transform:uppercase; margin:0 0 8px;">Type DELETE to confirm</p>
+      <input
+        id="fiq-del-input"
+        type="text"
+        placeholder="DELETE"
+        autocomplete="off"
+        style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px 14px; color:#f0f4ee; font-size:0.95rem; font-weight:700; letter-spacing:0.05em; outline:none; margin-bottom:20px; font-family:'Inter',sans-serif; box-sizing:border-box; transition:border-color 0.18s;"
+      />
+
+      <!-- Buttons -->
+      <div style="display:flex; gap:10px;">
+        <button
+          id="fiq-del-cancel"
+          style="flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; color:#a8bbb1; font-size:0.9rem; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; transition:background 0.2s;"
+          onmouseover="this.style.background='rgba(255,255,255,0.08)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.04)'"
+        >Cancel</button>
+        <button
+          id="fiq-del-confirm"
+          style="flex:1; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.2); border-radius:12px; padding:12px; color:#ef4444; font-size:0.9rem; font-weight:800; cursor:pointer; font-family:'Inter',sans-serif; opacity:0.4; pointer-events:none; transition:background 0.2s, opacity 0.2s;"
+        >Delete account</button>
+      </div>
+    </div>
+  </div>
+
   <style>
     #fiq-widget {
       position: fixed;
@@ -370,6 +418,10 @@
       #fiq-toggle { padding: 13px; border-radius: 50%; }
       #fiq-panel { width: 290px; bottom: 62px; }
     }
+
+    #fiq-del-input:focus {
+      border-color: rgba(239,68,68,0.4) !important;
+    }
   </style>
 
   <script>
@@ -398,7 +450,6 @@
 
       close.addEventListener('click', closePanel);
 
-      // Auto pop once every 7 days — 30 seconds after page load
       const last = parseInt(localStorage.getItem(KEY) || '0');
       if (Date.now() - last > WEEK) {
         setTimeout(() => {
@@ -407,7 +458,6 @@
         }, 30000);
       }
 
-      // Also auto pop 30 seconds after a job is logged
       window.addEventListener('fieldiq:job-logged', () => {
         const last2 = parseInt(localStorage.getItem(KEY) || '0');
         if (Date.now() - last2 > WEEK) {
@@ -523,19 +573,70 @@
       window.location.href = "auth.html"
     })
 
-    document.getElementById("profile-delete").addEventListener("click", async () => {
-      const confirmed = confirm("Are you sure? This will permanently delete your account and all your data. This cannot be undone.")
-      if (!confirmed) return
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) return
-      if (companyId) {
-        await supabase.from("jobs").delete().eq("company_id", companyId)
-        await supabase.from("expenses").delete().eq("company_id", companyId)
-        await supabase.from("companies").delete().eq("id", companyId)
+    // ── DELETE ACCOUNT ───────────────────────────────────────────────────────
+    document.getElementById("profile-delete").addEventListener("click", () => {
+      // Close the profile dropdown first
+      dropdown.classList.remove("open")
+
+      const overlay   = document.getElementById("fiq-delete-overlay")
+      const delInput  = document.getElementById("fiq-del-input")
+      const delBtn    = document.getElementById("fiq-del-confirm")
+      const cancelBtn = document.getElementById("fiq-del-cancel")
+
+      // Reset state
+      delInput.value = ""
+      delBtn.style.opacity = "0.4"
+      delBtn.style.pointerEvents = "none"
+      delBtn.textContent = "Delete account"
+
+      // Show modal
+      overlay.style.display = "flex"
+      setTimeout(() => delInput.focus(), 100)
+
+      // Enable button only when user types DELETE exactly
+      function onInput() {
+        const ready = delInput.value === "DELETE"
+        delBtn.style.opacity = ready ? "1" : "0.4"
+        delBtn.style.pointerEvents = ready ? "all" : "none"
       }
-      await supabase.auth.signOut()
-      window.location.href = "auth.html"
+      delInput.addEventListener("input", onInput)
+
+      // Cancel — close modal
+      function closeModal() {
+        overlay.style.display = "none"
+        delInput.removeEventListener("input", onInput)
+      }
+
+      cancelBtn.onclick = closeModal
+
+      // Click outside modal to close
+      overlay.onclick = (e) => {
+        if (e.target === overlay) closeModal()
+      }
+
+      // Confirm delete
+      delBtn.onclick = async () => {
+        if (delInput.value !== "DELETE") return
+
+        delBtn.textContent = "Deleting..."
+        delBtn.style.pointerEvents = "none"
+        delBtn.style.opacity = "0.6"
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) return
+
+        if (companyId) {
+          await supabase.from("jobs").delete().eq("company_id", companyId)
+          await supabase.from("expenses").delete().eq("company_id", companyId)
+          await supabase.from("companies").delete().eq("id", companyId)
+        }
+
+        await supabase.auth.signOut()
+        window.location.href = "auth.html"
+      }
     })
+    // ────────────────────────────────────────────────────────────────────────
+
   </script>
 </body>
 </html>

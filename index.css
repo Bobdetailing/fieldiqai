@@ -68,7 +68,9 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
+.logo-wrap { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; }
 .logo { width: 280px; max-width: 46vw; height: auto; }
+.logo-byline { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-top: -4px; padding-left: 2px; }
 
 .nav-links {
   display: flex;
@@ -942,6 +944,15 @@ a { text-decoration: none; color: inherit; }
 }
 
 .footer-links a:hover { color: var(--text); }
+
+.footer-copyright {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 14px 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
 
 /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
 @media (max-width: 980px) {

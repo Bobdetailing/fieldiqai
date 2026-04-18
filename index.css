@@ -60,7 +60,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .nav {
-  min-height: 76px;
+  min-height: 68px;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,9 +69,9 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
-.logo-wrap { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; gap: 1px; }
-.logo { width: 220px; max-width: 40vw; height: auto; }
-.logo-byline { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); padding-left: 3px; line-height: 1; }
+.logo-wrap { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; gap: 3px; justify-content: center; }
+.logo { width: 180px; max-width: 38vw; height: auto; }
+.logo-byline { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); padding-left: 3px; line-height: 1; }
 .logo-byline-korva { color: #9b6dff; letter-spacing: 0.18em; }
 
 .nav-links {

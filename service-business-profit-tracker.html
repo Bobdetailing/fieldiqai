@@ -11,22 +11,30 @@
   <meta property="og:url" content="https://fieldiqai.com/service-business-profit-tracker" />
   <meta property="og:type" content="website" />
   <link rel="canonical" href="https://fieldiqai.com/service-business-profit-tracker" />
-  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=2" />
-  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" type="image/png" href="fieldiqbrowser.png?v=3" />
+  <link rel="apple-touch-icon" href="/fieldiqbrowser.png" />
+  <meta name="theme-color" content="#162b0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNZWNS5DR9"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZNZWNS5DR9');</script>
 </head>
 <body>
+
   <header class="site-header">
     <div class="container nav">
-      <a href="index.html" class="logo-wrap" aria-label="Fieldiq AI Home">
+      <a href="/" class="logo-wrap" aria-label="Fieldiq AI Home">
         <img src="fieldiq-sun.png" alt="Fieldiq AI logo" class="logo" />
+        <span class="logo-byline">By <span class="logo-byline-korva">KORVA</span></span>
       </a>
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">☰</button>
       <nav class="nav-links" id="navLinks">
-        <a href="index.html#features">Features</a>
-        <a href="index.html#how-it-works">How It Works</a>
+        <a href="/#features">Features</a>
+        <a href="/#why">Why It Exists</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="privacy.html">Privacy</a>
         <a href="auth.html" class="nav-login">Log In</a>
         <a href="auth.html" class="btn btn-primary nav-cta">Start Free</a>
       </nav>
@@ -34,9 +42,11 @@
   </header>
 
   <main>
+
     <section class="hero">
       <div class="hero-noise"></div>
       <div class="container hero-inner">
+
         <div class="hero-tag">Know your real profit.</div>
 
         <h1 class="hero-headline">
@@ -45,68 +55,148 @@
         </h1>
 
         <p class="hero-sub">
-          After fuel, labor, supplies, and overhead — what did you actually make? Fieldiq tells you in 60 seconds.
+          After fuel, labor, supplies, and overhead — what did you actually make? Fieldiq AI tells you in 60 seconds.
         </p>
 
         <div class="hero-actions">
           <a href="auth.html" class="btn btn-primary btn-lg">Start Free — No Credit Card</a>
           <a href="auth.html" class="btn btn-ghost btn-lg">Log In</a>
         </div>
+
+        <div class="hero-testimonial">
+          <div class="testimonial-quote">"Finally I know exactly what I made after every single job."</div>
+          <div class="testimonial-source">— Service Business Owner</div>
+        </div>
+
+        <div class="dashboard-preview">
+          <div class="dash-topbar">
+            <div class="dash-dots"><span></span><span></span><span></span></div>
+            <div class="dash-title">Fieldiq AI — Dashboard</div>
+          </div>
+          <div class="dash-body">
+            <aside class="dash-sidebar">
+              <div class="dash-logo-row">
+                <img src="fieldiqbrowser.png" alt="Fieldiq icon" />
+                <span>Fieldiq AI</span>
+              </div>
+              <ul>
+                <li class="active">Dashboard</li>
+                <li>Jobs</li>
+                <li>Expenses</li>
+                <li>Calendar</li>
+                <li>AI</li>
+                <li>Reports</li>
+              </ul>
+            </aside>
+            <section class="dash-main">
+              <div class="dash-stats">
+                <div class="dash-stat">
+                  <p>Revenue</p>
+                  <h3 class="counter" data-target="7850">$0</h3>
+                  <span>This week</span>
+                </div>
+                <div class="dash-stat">
+                  <p>Expenses</p>
+                  <h3 class="counter" data-target="1940">$0</h3>
+                  <span>This week</span>
+                </div>
+                <div class="dash-stat profit-stat">
+                  <p>Real Profit</p>
+                  <h3 class="counter" data-target="5910">$0</h3>
+                  <span>This week</span>
+                </div>
+              </div>
+              <div class="dash-panels">
+                <div class="dash-panel ai-panel">
+                  <div class="panel-label">⚡ AI Insight</div>
+                  <p>Your Tuesday jobs had the lowest margin this week — fuel and supply costs ran 22% higher than your average. Consider adjusting pricing on those job types.</p>
+                </div>
+                <div class="dash-panel">
+                  <div class="panel-label">📍 What Fieldiq tracks</div>
+                  <ul class="track-list">
+                    <li>Real profit per job</li>
+                    <li>Fuel, labor & supply costs</li>
+                    <li>Upcoming expenses & cash flow</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <section class="section pain-section">
+    <div class="stats-strip">
+      <div class="container stats-inner">
+        <div class="stat-pill">100% Free to start</div>
+        <div class="stat-divider">|</div>
+        <div class="stat-pill">Real profit per job</div>
+        <div class="stat-divider">|</div>
+        <div class="stat-pill">No accountant needed</div>
+        <div class="stat-divider">|</div>
+        <div class="stat-pill">AI that knows your numbers</div>
+      </div>
+    </div>
+
+    <section class="section problem-section">
       <div class="container">
-        <div class="section-heading narrow">
-          <span class="eyebrow">The real problem</span>
-          <h2>Revenue looks great. Real profit tells a completely different story.</h2>
-          <p>Most service business owners track what comes in — but not what actually stays. Fuel, employees, supplies, and recurring bills quietly eat the difference.</p>
-        </div>
-        <div class="pain-grid">
-          <div class="pain-card">You made $4,000 this week — but what did you actually keep?</div>
-          <div class="pain-card">Employee pay, fuel, and supplies come off every single job.</div>
-          <div class="pain-card">Without tracking real profit, you can't make smart decisions.</div>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Revenue looks great.<br/>Real profit tells a different story.</h2>
+        <p class="section-sub">Most service business owners track what comes in — but not what actually stays. Fuel, employees, supplies, and recurring bills quietly eat the difference.</p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <div class="problem-icon">💰</div>
+            <p>You made $4,000 this week — but after fuel, supplies, and labor, what did you actually keep?</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-icon">💸</div>
+            <p>Employee pay, fuel, and supplies come off every single job and most owners never see it clearly.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-icon">❓</div>
+            <p>Without tracking real profit per job, you can't price right, cut waste, or grow with confidence.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section features-section" id="features">
       <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">How it works</span>
-          <h2>Track real profit automatically after every job</h2>
-        </div>
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything you need to know what you made</h2>
+        <p class="section-sub">No accounting degree. No spreadsheets. Just clear answers about what you actually kept on every job.</p>
         <div class="feature-grid">
           <div class="feature-card interactive-card" tabindex="0">
-            <h3>Job-by-Job Profit</h3>
-            <div class="feature-emoji">💰</div>
-            <p>Log revenue and costs per job — Fieldiq calculates your real profit instantly.</p>
+            <div class="feature-icon">💰</div>
+            <h3>Job Profit Tracking</h3>
+            <p>Log a job, add your costs, see exactly what you made. 60 seconds after every job on your phone.</p>
           </div>
           <div class="feature-card interactive-card" tabindex="0">
-            <h3>Automatic Expense Deduction</h3>
-            <div class="feature-emoji">💸</div>
-            <p>Recurring expenses like fuel and insurance are automatically factored in.</p>
+            <div class="feature-icon">💸</div>
+            <h3>Expense Tracking</h3>
+            <p>Fuel, supplies, equipment, insurance — log it once and Fieldiq factors it into your margins automatically.</p>
           </div>
           <div class="feature-card interactive-card" tabindex="0">
+            <div class="feature-icon">👥</div>
             <h3>Employee Pay Tracking</h3>
-            <div class="feature-emoji">👥</div>
-            <p>Employee wages are calculated and deducted from each job automatically.</p>
+            <p>Employee wages are calculated and deducted from each job so your profit number is always real.</p>
           </div>
           <div class="feature-card interactive-card" tabindex="0">
-            <h3>Profit Dashboard</h3>
-            <div class="feature-emoji">📊</div>
-            <p>Daily, weekly, monthly, and all-time real profit in one clear view.</p>
+            <div class="feature-icon">📊</div>
+            <h3>Dashboard Overview</h3>
+            <p>One screen. Real revenue, real expenses, real profit. Know your business without digging through anything.</p>
           </div>
           <div class="feature-card interactive-card" tabindex="0">
+            <div class="feature-icon">📋</div>
             <h3>Profit History</h3>
-            <div class="feature-emoji">📋</div>
-            <p>See every job you've ever logged and exactly what it made you.</p>
+            <p>See every job you've ever logged and exactly what it made you — daily, weekly, or all time.</p>
           </div>
           <div class="feature-card feature-card-highlight interactive-card" tabindex="0">
             <div class="feature-top-label">Most Valuable</div>
+            <div class="feature-icon">🤖</div>
             <h3>AI Profit Advisor</h3>
-            <div class="feature-emoji">🤖</div>
-            <p>Ask why your profit dropped, what's hurting your margins, and what to do about it.</p>
+            <p>Ask why your profit dropped, which jobs have the best margins, and what's eating into your money.</p>
           </div>
         </div>
       </div>
@@ -115,55 +205,64 @@
     <section class="section ai-section">
       <div class="container ai-grid">
         <div class="ai-copy">
-          <span class="eyebrow ai-eyebrow">AI Advisor</span>
-          <h2>Don't just track profit — understand it</h2>
-          <p>Fieldiq AI doesn't just show you numbers. It tells you what they mean and what to do next — based on your actual job history and expenses.</p>
-          <ul class="ai-list">
+          <div class="section-label">AI Advisor</div>
+          <h2 class="section-title">Don't just track profit — understand it</h2>
+          <p class="section-sub" style="text-align:left; margin-left:0;">Fieldiq AI doesn't just show you numbers. It tells you what they mean and what to do next — based on your actual job history and expenses.</p>
+          <ul class="ai-bullets">
             <li>Why did my profit drop this week?</li>
             <li>Which jobs have the best margins?</li>
             <li>What's eating into my profit the most?</li>
             <li>How much more do I need to make before scaling?</li>
           </ul>
+          <div class="ai-note">Not a generic chatbot. It reads your actual jobs, costs, and margins — and tells you what's really going on.</div>
           <a href="auth.html" class="btn btn-primary">Try It Free</a>
         </div>
-        <div class="ai-card ai-card-featured">
-          <div class="chat-box">
-            <div class="chat-message user">Why did my profit drop this week?</div>
-            <div class="chat-message ai">Two things: your fuel costs spiked on Tuesday and Wednesday, and you ran three jobs with below-average margins. Those five factors together account for most of the drop.</div>
-            <div class="chat-message user">How do I fix it?</div>
-            <div class="chat-message ai">Route efficiency on your fuel days would help immediately. On the margin side, your weakest jobs are priced about 15% below what your stronger jobs charge for similar work.</div>
+        <div class="ai-chat-card">
+          <div class="chat-header">AI Advisor</div>
+          <div class="chat-messages">
+            <div class="chat-msg user">Why did my profit drop this week?</div>
+            <div class="chat-msg ai">Two things: fuel costs spiked Tuesday and Wednesday, and you ran three jobs with below-average margins. Those combined account for most of the drop.</div>
+            <div class="chat-msg user">How do I fix it?</div>
+            <div class="chat-msg ai">Better routing on fuel-heavy days helps immediately. On margins, your weakest jobs are priced about 15% below what your stronger jobs charge for similar work.</div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section final-cta">
-      <div class="container final-cta-box">
-        <span class="eyebrow">Start free today</span>
-        <h2>Stop guessing. Start knowing your real profit.</h2>
-        <p>Fieldiq AI gives service business owners the financial clarity they need to make smarter decisions and grow with confidence.</p>
-        <div class="hero-actions center-actions">
-          <a href="auth.html" class="btn btn-primary btn-lg">Start Free</a>
-          <a href="auth.html" class="btn btn-secondary btn-lg">Log In</a>
+      <div class="container final-cta-inner">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Stop guessing.<br/>Know your real profit.</h2>
+        <p class="section-sub">Free to start. No credit card. Know what you actually made on today's jobs before you go to bed tonight.</p>
+        <div class="cta-actions">
+          <a href="auth.html" class="btn btn-primary btn-lg">Start Free Today</a>
+          <a href="auth.html" class="btn btn-ghost btn-lg">Log In</a>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <img src="fieldiq-sun.png" alt="Fieldiq AI logo" class="footer-logo" />
-        <p>The financial brain for service businesses.</p>
+        <p>Real profit tracking for service businesses.</p>
       </div>
       <div class="footer-links">
-        <a href="index.html#features">Features</a>
-        <a href="index.html#how-it-works">How It Works</a>
+        <a href="/#features">Features</a>
+        <a href="/#why">Why It Exists</a>
+        <a href="/#how-it-works">How It Works</a>
         <a href="auth.html">Log In</a>
         <a href="auth.html">Sign Up</a>
       </div>
     </div>
+    <div class="footer-copyright">
+      <p>&copy; Korva 2026. All rights reserved.</p>
+    </div>
   </footer>
+
   <script src="index.js"></script>
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');</script>
 </body>
 </html>

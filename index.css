@@ -61,7 +61,6 @@ a { text-decoration: none; color: inherit; }
 
 .nav {
   min-height: 68px;
-  padding: 8px 0 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,10 +68,10 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
-.logo-wrap { position: relative; text-decoration: none; display: inline-block; }
-.logo { width: 180px; max-width: 38vw; height: auto; display: block; }
-.logo-byline { display: block; position: absolute; bottom: -13px; left: 3px; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); line-height: 1; white-space: nowrap; }
-.logo-byline-korva { color: #9b6dff; letter-spacing: 0.18em; }
+.logo-wrap { text-decoration: none; }
+.logo { width: 280px; max-width: 46vw; height: auto; }
+.logo-byline { display: none; }
+.logo-byline-korva { color: #9b6dff; }
 
 .nav-links {
   display: flex;
@@ -946,6 +945,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 .footer-links a:hover { color: var(--text); }
+
+.footer-korva { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+.footer-korva span { color: #9b6dff; }
 
 .footer-copyright {
   border-top: 1px solid var(--border);

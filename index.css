@@ -61,7 +61,7 @@ a { text-decoration: none; color: inherit; }
 
 .nav {
   min-height: 68px;
-  padding: 10px 0;
+  padding: 8px 0 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,9 +69,9 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
-.logo-wrap { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; gap: 3px; justify-content: center; }
-.logo { width: 180px; max-width: 38vw; height: auto; }
-.logo-byline { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); padding-left: 3px; line-height: 1; }
+.logo-wrap { position: relative; text-decoration: none; display: inline-block; }
+.logo { width: 180px; max-width: 38vw; height: auto; display: block; }
+.logo-byline { display: block; position: absolute; bottom: -13px; left: 3px; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); line-height: 1; white-space: nowrap; }
 .logo-byline-korva { color: #9b6dff; letter-spacing: 0.18em; }
 
 .nav-links {
